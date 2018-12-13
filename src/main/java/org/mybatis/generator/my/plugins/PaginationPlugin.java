@@ -33,14 +33,12 @@ public class PaginationPlugin extends PluginAdapter {
         // XmlElement isParameterPresenteElemen = (XmlElement) element.getElements().get(element.getElements().size() -
         // 1);
         XmlElement ifElement = new XmlElement("if");
-        ifElement.addAttribute(new Attribute("test", "startOffSet>=0"));
+        ifElement.addAttribute(new Attribute("test", "startOffSet != null and startOffSet>=0"));
         ifElement.addElement(new TextElement("limit ${startOffSet} , ${size}"));
 
-        XmlElement ifElementOuter = new XmlElement("if");
-        ifElementOuter.addAttribute(new Attribute("test", "startOffSet!=null"));
-        ifElementOuter.addElement(ifElement);
+     
 
-        element.addElement(element.getElements().size(), ifElementOuter);
+        element.addElement(element.getElements().size(), ifElement);
         // isParameterPresenteElemen.addElement(ifElement);
         return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element, introspectedTable);
     }
