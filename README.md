@@ -1,0 +1,1 @@
+# mybatis-generator-my-plugin
