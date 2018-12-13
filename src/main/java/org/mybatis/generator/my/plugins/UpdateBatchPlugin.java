@@ -34,7 +34,7 @@ public class UpdateBatchPlugin extends PluginAdapter{
         
         Method method = new Method();
         method.setVisibility(JavaVisibility.DEFAULT);
-        method.setName("updateBatch");
+        method.setName("updateBatchSelective");
         method.addParameter(new Parameter(listType, "list"));
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
@@ -46,7 +46,7 @@ public class UpdateBatchPlugin extends PluginAdapter{
     private void batchUpdate(Document document,IntrospectedTable introspectedTable) {
         CommentGenerator commentGenerator = context.getCommentGenerator();
         XmlElement batchUpdateEl = new XmlElement("update");
-        batchUpdateEl.addAttribute(new Attribute("id", "updateBatch"));
+        batchUpdateEl.addAttribute(new Attribute("id", "updateBatchSelective"));
         batchUpdateEl.addAttribute(new Attribute("parameterType", "java.util.List"));
         
         XmlElement foreachEl = new XmlElement("foreach");
