@@ -242,6 +242,13 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         answer.addMethod(getGetter(field));
 
         field = new Field();
+        field.setName("likeListValue");
+        field.setType(FullyQualifiedJavaType.getBooleanPrimitiveInstance());
+        field.setVisibility(JavaVisibility.PRIVATE);
+        answer.addField(field);
+        answer.addMethod(getGetter(field));
+        
+        field = new Field();
         field.setName("listValue"); 
         field.setType(FullyQualifiedJavaType.getBooleanPrimitiveInstance());
         field.setVisibility(JavaVisibility.PRIVATE);
@@ -277,7 +284,11 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.addBodyLine("this.value = value;"); 
         method.addBodyLine("this.typeHandler = typeHandler;"); 
         method.addBodyLine("if (value instanceof List<?>) {"); 
+        method.addBodyLine("if(condition.contains(\"like\")) {"); 
+        method.addBodyLine("this.likeListValue = true;");
+        method.addBodyLine("} else if(condition.contains(\"in\")) {"); 
         method.addBodyLine("this.listValue = true;"); 
+        method.addBodyLine("}"); 
         method.addBodyLine("} else {"); 
         method.addBodyLine("this.singleValue = true;"); 
         method.addBodyLine("if(value == null || value.toString().trim().length() == 0) {"); 
@@ -617,6 +628,34 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
             if (introspectedColumn.isJdbcCharacterColumn()) {
                 answer.addMethod(getSetLikeMethod(introspectedColumn));
                 answer.addMethod(getSetNotLikeMethod(introspectedColumn));
+            }
+            
+            if (introspectedColumn.isStringColumn()) {
+                
+                method = new Method();
+                method.setVisibility(JavaVisibility.PUBLIC);
+                sb.setLength(0);
+                sb.append(introspectedColumn.getJavaProperty());
+                sb.insert(0, Character.toUpperCase(sb.charAt(0)));
+                
+                sb = new StringBuilder();
+                sb.append(introspectedColumn.getJavaProperty());
+                sb.setCharAt(0, Character.toUpperCase(sb.charAt(0)));
+                sb.insert(0, "and");
+                sb.append("LikeList");
+                method.setName(sb.toString());
+                
+                FullyQualifiedJavaType type = FullyQualifiedJavaType.getNewListInstance();
+                if (introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
+                    type.addTypeArgument(introspectedColumn.getFullyQualifiedJavaType().getPrimitiveTypeWrapper());
+                } else {
+                    type.addTypeArgument(introspectedColumn.getFullyQualifiedJavaType());
+                }
+                method.addParameter(new Parameter(type, "values"));
+                method.setReturnType(FullyQualifiedJavaType.getCriteriaInstance());
+                method.addBodyLine("addCriterion(\"" + introspectedColumn.getActualColumnName()+" like\""+", values, "+"\""+introspectedColumn.getJavaProperty()+"\");");
+                method.addBodyLine("return (Criteria) this;");
+                answer.addMethod(method);
             }
 
             answer.addMethod(getSetInOrNotInMethod(introspectedColumn, true));
@@ -1048,6 +1087,24 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         sb.append('}');
         innerForEach.addElement(new TextElement(sb.toString()));
         when.addElement(innerForEach);
+        chooseElement.addElement(when);
+        
+        //再加一个when 解决  where a like '123%' or a like '234%'的语句
+        when = new XmlElement("when"); 
+        when.addAttribute(new Attribute("test", "criterion.likeListValue"));  
+        when.addElement(new TextElement("and"));
+        
+        
+        XmlElement lastForEach = new XmlElement("foreach"); 
+        lastForEach.addAttribute(new Attribute("collection", "criterion.value"));  
+        lastForEach.addAttribute(new Attribute("item", "listItem"));  
+        lastForEach.addAttribute(new Attribute("open", "("));  
+        lastForEach.addAttribute(new Attribute("close", ")"));  
+        lastForEach.addAttribute(new Attribute("separator", "or"));  
+        sb.setLength(0);
+        sb.append("${criterion.condition} concat(#{listItem},'%')"); 
+        lastForEach.addElement(new TextElement(sb.toString()));
+        when.addElement(lastForEach);
         chooseElement.addElement(when);
 
         return middleForEachElement;

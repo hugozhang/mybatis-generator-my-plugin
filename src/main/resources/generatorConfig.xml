@@ -49,7 +49,7 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="test" domainObjectName="test"
+		<table schema="tgm" tableName="test" domainObjectName="TestDomain"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="true"></table>
