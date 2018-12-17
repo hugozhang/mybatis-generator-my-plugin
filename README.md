@@ -1,6 +1,6 @@
 # mybatis-generator-my-plugin
 
-java中用boolean类型对应mysql用bit
+java中用boolean类型对应mysql用bit  有索引的尽量不要用null
 
 ### mybatis-gengerator 插件扩展
 
