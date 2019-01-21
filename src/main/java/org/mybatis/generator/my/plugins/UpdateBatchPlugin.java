@@ -22,7 +22,8 @@ public class UpdateBatchPlugin extends PluginAdapter{
 
     @Override
     public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
-        batchUpdate(document,introspectedTable);
+        updateBatch(document, introspectedTable);
+        updateBatchSelective(document,introspectedTable);
         return true;
     }
     
@@ -34,7 +35,15 @@ public class UpdateBatchPlugin extends PluginAdapter{
         
         Method method = new Method();
         method.setVisibility(JavaVisibility.DEFAULT);
-        method.setName("updateBatchSelective");
+        method.setName("updateBatchByPrimaryKeySelective");
+        method.addParameter(new Parameter(listType, "list"));
+        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        interfaze.addMethod(method);
+        
+        method = new Method();
+        method.setVisibility(JavaVisibility.DEFAULT);
+        method.setName("updateBatch");
         method.addParameter(new Parameter(listType, "list"));
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
@@ -42,11 +51,53 @@ public class UpdateBatchPlugin extends PluginAdapter{
         
         return true;
     }
-
-    private void batchUpdate(Document document,IntrospectedTable introspectedTable) {
+    
+    
+    private void updateBatch(Document document,IntrospectedTable introspectedTable) {
         CommentGenerator commentGenerator = context.getCommentGenerator();
         XmlElement batchUpdateEl = new XmlElement("update");
-        batchUpdateEl.addAttribute(new Attribute("id", "updateBatchSelective"));
+        batchUpdateEl.addAttribute(new Attribute("id", "updateBatch"));
+        batchUpdateEl.addAttribute(new Attribute("parameterType", "java.util.List"));
+        
+        XmlElement foreachEl = new XmlElement("foreach");
+        foreachEl.addAttribute(new Attribute("collection", "list"));
+        foreachEl.addAttribute(new Attribute("item", "item"));
+        foreachEl.addAttribute(new Attribute("index", "index"));
+        foreachEl.addAttribute(new Attribute("separator", ";"));
+        foreachEl.addAttribute(new Attribute("open", ""));
+        foreachEl.addAttribute(new Attribute("close", ""));
+        
+        foreachEl.addElement(new TextElement("update " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
+        XmlElement setEl = new XmlElement("set");
+        for(IntrospectedColumn column : introspectedTable.getAllColumns()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(column.getActualColumnName());
+            sb.append(" = #{");
+            sb.append("item."+column.getJavaProperty());
+            sb.append("},");
+            setEl.addElement(new TextElement(sb.toString()));
+        }
+        IntrospectedColumn primaryKeyColumn = introspectedTable.getPrimaryKeyColumns().get(0);
+        StringBuilder sb = new StringBuilder();
+        sb.append("where " + MyBatis3FormattingUtilities
+                .getAliasedEscapedColumnName(primaryKeyColumn));
+        sb.append(" = ");
+        sb.append(MyBatis3FormattingUtilities.getParameterClause(
+                primaryKeyColumn, "item."));
+        
+        foreachEl.addElement(setEl);
+        foreachEl.addElement(new TextElement(sb.toString()));
+        batchUpdateEl.addElement(foreachEl);
+        commentGenerator.addComment(foreachEl);
+        commentGenerator.addComment(batchUpdateEl);
+        document.getRootElement().addElement(batchUpdateEl);
+    }
+    
+
+    private void updateBatchSelective(Document document,IntrospectedTable introspectedTable) {
+        CommentGenerator commentGenerator = context.getCommentGenerator();
+        XmlElement batchUpdateEl = new XmlElement("update");
+        batchUpdateEl.addAttribute(new Attribute("id", "updateBatchByPrimaryKeySelective"));
         batchUpdateEl.addAttribute(new Attribute("parameterType", "java.util.List"));
         
         XmlElement foreachEl = new XmlElement("foreach");
@@ -78,7 +129,12 @@ public class UpdateBatchPlugin extends PluginAdapter{
         }
         foreachEl.addElement(setEl);
         if(introspectedTable.getPrimaryKeyColumns().size() != 1) {
-            throw new RuntimeException("primary key must at least one");
+            StringBuilder sb = new StringBuilder();
+            for(IntrospectedColumn column : introspectedTable.getPrimaryKeyColumns()) {
+                sb.append(column.getActualColumnName());
+                sb.append(",");
+            }
+            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + " : " + sb.toString());
         }
         IntrospectedColumn primaryKeyColumn = introspectedTable.getPrimaryKeyColumns().get(0);
         StringBuilder sb = new StringBuilder();
