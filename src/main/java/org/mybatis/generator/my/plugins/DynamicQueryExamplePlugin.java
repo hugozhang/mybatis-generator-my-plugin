@@ -283,11 +283,16 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.addBodyLine("this.condition = condition;"); 
         method.addBodyLine("this.value = value;"); 
         method.addBodyLine("this.typeHandler = typeHandler;"); 
+        
         method.addBodyLine("if (value instanceof List<?>) {"); 
+        
+        method.addBodyLine("List<?> l = (List<?>)value;"); 
+        method.addBodyLine("if(!l.isEmpty()) {"); 
         method.addBodyLine("if(condition.contains(\"like\")) {"); 
         method.addBodyLine("this.likeListValue = true;");
         method.addBodyLine("} else if(condition.contains(\"in\")) {"); 
         method.addBodyLine("this.listValue = true;"); 
+        method.addBodyLine("}"); 
         method.addBodyLine("}"); 
         method.addBodyLine("} else {"); 
         method.addBodyLine("this.singleValue = true;"); 
