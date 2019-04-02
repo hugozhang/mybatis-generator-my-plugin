@@ -20,6 +20,7 @@ public class TableCommentGenerator extends DefaultCommentGenerator {
         topLevelClass.addJavaDocLine("");
         topLevelClass.addImportedType("io.swagger.annotations.ApiModel");
         topLevelClass.addImportedType("io.swagger.annotations.ApiModelProperty");
+        topLevelClass.addJavaDocLine("");
         topLevelClass.addJavaDocLine("@ApiModel"+"(\""+introspectedTable.getRemarks()+"\")");
     }
 
