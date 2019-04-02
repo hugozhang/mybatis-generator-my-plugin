@@ -18,8 +18,8 @@ public class TableCommentGenerator extends DefaultCommentGenerator {
     @Override
     public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         topLevelClass.addJavaDocLine("");
-        topLevelClass.addImportedType("io.swagger.annotations.ApiModel;");
-        topLevelClass.addImportedType("io.swagger.annotations.ApiModelProperty;");
+        topLevelClass.addImportedType("io.swagger.annotations.ApiModel");
+        topLevelClass.addImportedType("io.swagger.annotations.ApiModelProperty");
         topLevelClass.addJavaDocLine("@ApiModel"+"(\""+introspectedTable.getRemarks()+"\")");
     }
 
