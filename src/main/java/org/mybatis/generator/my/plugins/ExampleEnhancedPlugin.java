@@ -83,11 +83,11 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
     }
 
     public static void main(String[] args) {
-        String s = "%null  %";
+        String value = "%null  %";
         
-        String news = s.replaceAll("%", "");
+        String newVaule = value.replaceAll("%", "");
         
-        System.out.println(news);
+        System.out.println(newVaule);
         
         
     }
