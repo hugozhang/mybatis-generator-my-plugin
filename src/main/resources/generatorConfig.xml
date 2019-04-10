@@ -49,12 +49,14 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table schema="vms" tableName="vendor" domainObjectName="Vendor"
-			   enableCountByExample="true" enableUpdateByExample="true"
-			   enableDeleteByExample="true" enableSelectByExample="true"
-			   selectByExampleQueryId="true">
-			<generatedKey column="vendor_id" sqlStatement="JDBC" identity="true"/>
-		</table>
+
+		<table schema="tgm" tableName="truck" domainObjectName="Truck"
+			enableCountByExample="true" enableUpdateByExample="true"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="true">
+			<generatedKey column="waybill_id" sqlStatement="JDBC" identity="true"/>
+			</table>
+
 
 	</context>
 </generatorConfiguration>
