@@ -49,10 +49,12 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="waybill" domainObjectName="Waybill"
+		<table schema="tgm" tableName="truck" domainObjectName="Truck"
 			enableCountByExample="true" enableUpdateByExample="true"
 			enableDeleteByExample="true" enableSelectByExample="true"
-			selectByExampleQueryId="true"></table>
+			selectByExampleQueryId="true">
+			<generatedKey column="waybill_id" sqlStatement="JDBC" identity="true"/>
+			</table>
 
 	</context>
 </generatorConfiguration>

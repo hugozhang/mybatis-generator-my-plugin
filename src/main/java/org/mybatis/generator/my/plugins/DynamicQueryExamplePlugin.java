@@ -725,24 +725,47 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.setReturnType(FullyQualifiedJavaType.getCriteriaInstance());
         sb.setLength(0);
 
+        //检查like  or not like 的情况
+        if(operator.contains("like")) {
+            sb.append("if(value == null || value.trim().length() == 0 ) return (Criteria) this;");
+            method.addBodyLine(sb.toString());
+        }
+        
+        sb.setLength(0);
+        
         if (introspectedColumn.isJDBCDateColumn()) {
-            sb.append("addCriterionForJDBCDate(\""); 
+            sb.append("addCriterionForJDBCDate(\"");
         } else if (introspectedColumn.isJDBCTimeColumn()) {
-            sb.append("addCriterionForJDBCTime(\""); 
+            sb.append("addCriterionForJDBCTime(\"");
         } else if (stringHasValue(introspectedColumn.getTypeHandler())) {
-            sb.append("add"); 
+            sb.append("add");
             sb.append(introspectedColumn.getJavaProperty());
             sb.setCharAt(3, Character.toUpperCase(sb.charAt(3)));
-            sb.append("Criterion(\""); 
+            sb.append("Criterion(\"");
         } else {
-            sb.append("addCriterion(\""); 
+            sb.append("addCriterion(\"");
         }
 
         sb.append(MyBatis3FormattingUtilities.getAliasedActualColumnName(introspectedColumn));
         sb.append(' ');
         sb.append(operator);
         sb.append("\", "); 
-        sb.append("value"); 
+        
+        //检查like  or not like 的情况
+        if(operator.contains("like")) {
+            sb.append("\"");
+            sb.append("%");
+            sb.append("\"");
+            sb.append("+");
+            sb.append("value");
+            sb.append("+");
+            sb.append("\"");
+            sb.append("%");
+            sb.append("\"");
+        } else {
+            sb.append("value"); 
+        }
+        
         sb.append(", \""); 
         sb.append(introspectedColumn.getJavaProperty());
         sb.append("\");"); 
