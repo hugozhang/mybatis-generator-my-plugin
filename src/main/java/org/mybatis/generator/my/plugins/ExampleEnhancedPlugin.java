@@ -82,4 +82,14 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
         return true;
     }
 
+    public static void main(String[] args) {
+        String s = "%null  %";
+        
+        String news = s.replaceAll("%", "");
+        
+        System.out.println(news);
+        
+        
+    }
+    
 }

@@ -727,7 +727,13 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
 
         //检查like  or not like 的情况
         if(operator.contains("like")) {
-            sb.append("if(value == null || value.trim().length() == 0 ) return (Criteria) this;");
+            sb.append("if(value == null || value.trim().length() == 0) return (Criteria) this;");
+            method.addBodyLine(sb.toString());
+            sb.setLength(0);
+            sb.append("String newVaule = value.replaceAll(\"%\", \"\").trim();");
+            method.addBodyLine(sb.toString());
+            sb.setLength(0);
+            sb.append("if(newVaule.contains(\"null\")) return (Criteria) this;");
             method.addBodyLine(sb.toString());
         }
         
@@ -751,8 +757,10 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         sb.append(operator);
         sb.append("\", "); 
         
+        sb.append("value");
+        
         //检查like  or not like 的情况
-        if(operator.contains("like")) {
+        /*if(operator.contains("like")) {
             sb.append("\"");
             sb.append("%");
             sb.append("\"");
@@ -764,7 +772,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
             sb.append("\"");
         } else {
             sb.append("value"); 
-        }
+        }*/
         
         sb.append(", \""); 
         sb.append(introspectedColumn.getJavaProperty());
