@@ -6,11 +6,7 @@ import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
@@ -29,7 +25,7 @@ public class UpdateBatchPlugin extends PluginAdapter{
     
     @Override
     public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-        CommentGenerator commentGenerator = context.getCommentGenerator();
+        /*CommentGenerator commentGenerator = context.getCommentGenerator();
         FullyQualifiedJavaType listType = FullyQualifiedJavaType.getNewListInstance();
         listType.addTypeArgument(introspectedTable.getRules().calculateAllFieldsClass());
         
@@ -47,7 +43,7 @@ public class UpdateBatchPlugin extends PluginAdapter{
         method.addParameter(new Parameter(listType, "list"));
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
-        interfaze.addMethod(method);
+        interfaze.addMethod(method);*/
         
         return true;
     }
