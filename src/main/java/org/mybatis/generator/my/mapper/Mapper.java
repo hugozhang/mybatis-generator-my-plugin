@@ -2,6 +2,17 @@ package org.mybatis.generator.my.mapper;
 
 import java.util.List;
 
+/**
+ * 
+ * @ClassName:   Mapper   
+ * @Description: 通用Mapper接口
+ * @author:      Administrator
+ * @date:        2019年4月28日 下午2:44:55  
+ *
+* @param <En> En = entity
+ * @param <Ex> Ex = example
+ * @Copyright:   2019 www.jumapeisong.com Inc. All rights reserved.
+ */
 public interface Mapper<En, Ex> {
 
     int deleteByPrimaryKey(Integer primaryKey);
