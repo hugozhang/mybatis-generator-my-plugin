@@ -19,6 +19,8 @@ public interface Mapper<En, Ex> {
     int updateByPrimaryKeySelective(En record);
 
     int updateBatchByPrimaryKeySelective(List<En> list);
+    
+    int updateBatchByPrimaryKey(List<En> list);
 
     En selectByPrimaryKey(Integer primaryKey);
     
