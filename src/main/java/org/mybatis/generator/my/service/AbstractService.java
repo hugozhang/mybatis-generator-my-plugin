@@ -34,6 +34,8 @@ public abstract class AbstractService<En, Ex> {
      */
     <In,Out> Page<Out> pageOf(PageRequestWrap<In> query,PageFunction<Out> func) {
         Page<Out> p = new Page<Out>();
+        p.setPageNo(query.getPageNo());
+        p.setPageSize(query.getPageSize());
         int total = func.ofTotal(query);
         p.setTotal(total);
         if (total != 0) {
