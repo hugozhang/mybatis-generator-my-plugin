@@ -2,7 +2,7 @@ package org.mybatis.generator.my.page;
 
 import java.io.Serializable;
 
-public class PageFilterWrap<T> implements Serializable {
+public class PageRequestWrap<T> implements Serializable {
 
     /**
      * serialVersionUID

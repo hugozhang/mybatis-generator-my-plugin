@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.mybatis.generator.my.mapper.Mapper;
 import org.mybatis.generator.my.page.Page;
-import org.mybatis.generator.my.page.PageQueryParamWrap;
+import org.mybatis.generator.my.page.PageRequestWrap;
+import org.mybatis.generator.my.page.PageFunction;
 
 /**
  * 
@@ -21,15 +22,22 @@ public abstract class AbstractService<En, Ex> {
 
     abstract Mapper<En, Ex> getMapper();
 
-    abstract <T> Ex pageOfExample(PageQueryParamWrap<T> query);
-
-    <T> Page<En> pageOf(PageQueryParamWrap<T> query) {
-        Page<En> p = new Page<En>();
-        Ex ex = pageOfExample(query);
-        int total = (int) countByExample(ex);
+    /**
+     * 
+     * @Title: pageOf   
+     * @Description: TODO(这里用一句话描述这个方法的作用)   
+     * @param: @param query    In:传过来的参数
+     * @param: @param func      Out:返回的对象
+     * @param: @return      
+     * @return: Page<E>      
+     * @throws
+     */
+    <In,Out> Page<Out> pageOf(PageRequestWrap<In> query,PageFunction<Out> func) {
+        Page<Out> p = new Page<Out>();
+        int total = func.ofTotal(query);
         p.setTotal(total);
         if (total != 0) {
-            p.setResults(selectByExample(ex));
+            p.setResults(func.ofResults(query));
         }
         return p;
     }
