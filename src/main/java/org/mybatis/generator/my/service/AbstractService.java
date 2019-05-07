@@ -4,18 +4,18 @@ import java.util.List;
 
 import org.mybatis.generator.my.mapper.Mapper;
 import org.mybatis.generator.my.page.Page;
-import org.mybatis.generator.my.page.PageRequestWrap;
 import org.mybatis.generator.my.page.PageFunction;
+import org.mybatis.generator.my.page.PageRequestWrap;
 
 /**
  * 
  * @ClassName: AbstractService
  * @Description: 通用服务接口
- * @author: Administrator
+ * @author: Hugozxh
  * @date: 2019年4月28日 下午2:12:42
  *
- * @param <En> En = entity
- * @param <Ex> Ex = example
+ * @param <En> En = entity  实体类
+ * @param <Ex> Ex = example   实体类对应的Example
  * @Copyright: 2019 www.jumapeisong.com Inc. All rights reserved.
  */
 public abstract class AbstractService<En, Ex> {
@@ -25,7 +25,7 @@ public abstract class AbstractService<En, Ex> {
     /**
      * 
      * @Title: pageOf   
-     * @Description: TODO(这里用一句话描述这个方法的作用)   
+     * @Description: 分页
      * @param: @param query    In:传过来的参数
      * @param: @param func      Out:返回的对象
      * @param: @return      
@@ -34,6 +34,7 @@ public abstract class AbstractService<En, Ex> {
      */
     <In,Out> Page<Out> pageOf(PageRequestWrap<In> query,PageFunction<Out> func) {
         Page<Out> p = new Page<Out>();
+        if(func == null) return p;
         p.setPageNo(query.getPageNo());
         p.setPageSize(query.getPageSize());
         int total = func.ofTotal(query);

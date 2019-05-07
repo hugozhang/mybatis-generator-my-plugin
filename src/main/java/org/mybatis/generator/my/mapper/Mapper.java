@@ -9,8 +9,8 @@ import java.util.List;
  * @author:      Administrator
  * @date:        2019年4月28日 下午2:44:55  
  *
-* @param <En> En = entity
- * @param <Ex> Ex = example
+ * @param <En> En = entity  实体类
+ * @param <Ex> Ex = example   实体类对应的Example
  * @Copyright:   2019 www.jumapeisong.com Inc. All rights reserved.
  */
 public interface Mapper<En, Ex> {

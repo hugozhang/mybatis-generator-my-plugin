@@ -30,7 +30,7 @@ import org.mybatis.generator.codegen.AbstractJavaGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
 
 /**
- * @author Jeff Butler
+ * @author Hugozxh
  * 
  */
 public class MapperGeneratorExt extends AbstractJavaGenerator {
@@ -62,8 +62,8 @@ public class MapperGeneratorExt extends AbstractJavaGenerator {
             FullyQualifiedJavaType example = new FullyQualifiedJavaType(introspectedTable.getExampleType());
 
             FullyQualifiedJavaType entity = new FullyQualifiedJavaType(
-                    introspectedTable.getFullyQualifiedTable().getDomainObjectName());
-
+                    context.getJavaModelGeneratorConfiguration().getTargetPackage() + "." + introspectedTable.getFullyQualifiedTable().getDomainObjectName());
+            
             fqjt.addTypeArgument(entity);
             fqjt.addTypeArgument(example);
             
