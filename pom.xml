@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.mybatis.generator</groupId>
 	<artifactId>mybatis-generator-my-plugin</artifactId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
 
 	<dependencies>
 		<dependency>
@@ -48,7 +48,7 @@
 						<dependency>
 							<groupId>org.mybatis.generator</groupId>
 							<artifactId>mybatis-generator-my-plugin</artifactId>
-							<version>1.1.0</version>
+							<version>1.1.1</version>
 							<scope>system</scope>
 							<systemPath>${basedir}/target/mybatis-generator-my-plugin.jar</systemPath>
 						</dependency>
