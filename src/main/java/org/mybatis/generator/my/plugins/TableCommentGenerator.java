@@ -1,5 +1,7 @@
 package org.mybatis.generator.my.plugins;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
@@ -21,13 +23,21 @@ public class TableCommentGenerator extends DefaultCommentGenerator {
         topLevelClass.addImportedType("io.swagger.annotations.ApiModel");
         topLevelClass.addImportedType("io.swagger.annotations.ApiModelProperty");
         topLevelClass.addJavaDocLine("");
-        topLevelClass.addJavaDocLine("@ApiModel"+"(\""+introspectedTable.getRemarks()+"\")");
+        String comment = introspectedTable.getRemarks();
+        if(StringUtils.isBlank(comment) ){ return; }
+        // 转义,避免出现单引号或者双引号的冲突
+        comment = StringEscapeUtils.escapeJava(comment);
+        topLevelClass.addJavaDocLine("@ApiModel"+"(\""+comment+"\")");
     }
 
     /**在这里添加字段注解**/
     @Override
     public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
-        field.addJavaDocLine("@ApiModelProperty"+"(\""+introspectedColumn.getRemarks()+"\")");
+        String remark = introspectedColumn.getRemarks();
+        if( StringUtils.isNotBlank(remark) ){
+            remark = StringEscapeUtils.escapeJava(remark);
+        }
+        field.addJavaDocLine("@ApiModelProperty"+"(\""+remark+"\")");
     }
 
 }
