@@ -61,7 +61,7 @@
 
 		<table schema="tgm" tableName="waybill_amount" domainObjectName="WaybillAmount"
 			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="false" enableSelectByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="false"
 			selectByExampleQueryId="false">
 			<generatedKey column="waybill_amount_id" sqlStatement="JDBC"
 				identity="true" />

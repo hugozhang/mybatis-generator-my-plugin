@@ -44,6 +44,10 @@ public abstract class AbstractService<En, Ex> {
         return p;
     }
 
+    public int deleteByExample(Ex example) {
+        return getMapper().deleteByExample(example);
+    }
+    
     public long countByExample(Ex example) {
         return getMapper().countByExample(example);
     }
