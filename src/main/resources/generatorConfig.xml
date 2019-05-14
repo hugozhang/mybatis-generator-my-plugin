@@ -11,6 +11,7 @@
 		<plugin type="org.mybatis.generator.my.plugins.PaginationPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ExampleEnhancedPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ModelEnhancedPlugin"></plugin>
+		<plugin type="org.mybatis.generator.my.plugins.ModelSwaggerPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.XmlFileOverwritePlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.InsertBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.UpdateBatchPlugin"></plugin>
