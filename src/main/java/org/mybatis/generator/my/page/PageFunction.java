@@ -4,8 +4,8 @@ import java.util.Collection;
 
 public interface PageFunction<Out> {
 
-    <In> int ofTotal(In in);
+    int ofTotal();
     
-    <In> Collection<Out> ofResults(In in);
+    Collection<Out> ofResults();
     
 }

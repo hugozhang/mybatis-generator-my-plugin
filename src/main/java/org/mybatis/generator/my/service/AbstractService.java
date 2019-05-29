@@ -5,7 +5,6 @@ import java.util.List;
 import org.mybatis.generator.my.mapper.Mapper;
 import org.mybatis.generator.my.page.Page;
 import org.mybatis.generator.my.page.PageFunction;
-import org.mybatis.generator.my.page.PageRequestWrap;
 
 /**
  * 
@@ -20,7 +19,7 @@ import org.mybatis.generator.my.page.PageRequestWrap;
  */
 public abstract class AbstractService<En, Ex> {
 
-    abstract Mapper<En, Ex> getMapper();
+    public abstract Mapper<En, Ex> getMapper();
 
     /**
      * 
@@ -32,52 +31,56 @@ public abstract class AbstractService<En, Ex> {
      * @return: Page<E>      
      * @throws
      */
-    <In,Out> Page<Out> pageOf(PageRequestWrap<In> query,PageFunction<Out> func) {
+    public <In,Out> Page<Out> pageOf(int pageSize,int pageNo,PageFunction<Out> func) {
         Page<Out> p = new Page<Out>();
         if(func == null) return p;
-        p.setPageNo(query.getPageNo());
-        p.setPageSize(query.getPageSize());
-        int total = func.ofTotal(query);
+        p.setPageNo(pageNo);
+        p.setPageSize(pageSize);
+        int total = func.ofTotal();
         p.setTotal(total);
         if (total != 0) {
-            p.setResults(func.ofResults(query));
+            p.setResults(func.ofResults());
         }
         return p;
     }
 
-    long countByExample(Ex example) {
+    public int deleteByExample(Ex example) {
+        return getMapper().deleteByExample(example);
+    }
+    
+    public long countByExample(Ex example) {
         return getMapper().countByExample(example);
     }
 
-    int insert(En record) {
+    public int insert(En record) {
         return getMapper().insert(record);
     }
 
-    int insertSelective(En record) {
+    public int insertSelective(En record) {
         return getMapper().insertSelective(record);
     }
 
-    int insertBatch(List<En> list) {
+    public int insertBatch(List<En> list) {
         return getMapper().insertBatch(list);
     }
 
-    List<En> selectByExample(Ex example) {
+    public List<En> selectByExample(Ex example) {
         return getMapper().selectByExample(example);
     }
 
-    En selectByPrimaryKey(Integer primaryKey) {
+    public En selectByPrimaryKey(Integer primaryKey) {
         return getMapper().selectByPrimaryKey(primaryKey);
     }
 
-    int updateByPrimaryKeySelective(En record) {
+    public int updateByPrimaryKeySelective(En record) {
         return getMapper().updateByPrimaryKeySelective(record);
     }
 
-    int updateBatchByPrimaryKey(List<En> list) {
+    public int updateBatchByPrimaryKey(List<En> list) {
         return getMapper().updateBatchByPrimaryKey(list);
     }
 
-    int updateBatchByPrimaryKeySelective(List<En> list) {
+    public int updateBatchByPrimaryKeySelective(List<En> list) {
         return getMapper().updateBatchByPrimaryKeySelective(list);
     }
 }

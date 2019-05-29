@@ -18,10 +18,10 @@ public class MapperPlugin extends PluginAdapter {
         return true;
     }
     
-    public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element,
+    /*public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element,
             IntrospectedTable introspectedTable) {
         return false;
-    }
+    }*/
 
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
         MapperGeneratorExt mapperGeneratorExt = new MapperGeneratorExt();
