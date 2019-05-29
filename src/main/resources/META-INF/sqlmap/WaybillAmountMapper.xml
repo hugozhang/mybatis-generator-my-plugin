@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.juma.tgm.waybill.dao.WaybillAmountMapper">
+  <resultMap id="BaseResultMap" type="com.juma.tgm.waybill.domain.WaybillAmount">
+    <id column="waybill_amount_id" jdbcType="INTEGER" property="waybillAmountId" />
+    <result column="waybill_id" jdbcType="INTEGER" property="waybillId" />
+    <result column="customer_freight_with_tax" jdbcType="DECIMAL" property="customerFreightWithTax" />
+    <result column="vendor_freight_with_tax" jdbcType="DECIMAL" property="vendorFreightWithTax" />
+    <result column="last_customer_freight_with_tax" jdbcType="DECIMAL" property="lastCustomerFreightWithTax" />
+    <result column="last_vendor_freight_with_tax" jdbcType="DECIMAL" property="lastVendorFreightWithTax" />
+    <result column="create_user_id" jdbcType="INTEGER" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.singleValue and !criterion.noValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+                <when test="criterion.likeListValue">
+                  and
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator="or">
+                    ${criterion.condition} concat(#{listItem},'%')
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    waybill_amount_id, waybill_id, customer_freight_with_tax, vendor_freight_with_tax, 
+    last_customer_freight_with_tax, last_vendor_freight_with_tax, create_user_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from waybill_amount
+    where waybill_amount_id = #{waybillAmountId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from waybill_amount
+    where waybill_amount_id = #{waybillAmountId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.juma.tgm.waybill.domain.WaybillAmountExample">
+    delete from waybill_amount
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="waybill_amount_id" keyProperty="waybillAmountId" parameterType="com.juma.tgm.waybill.domain.WaybillAmount" useGeneratedKeys="true">
+    insert into waybill_amount (waybill_id, customer_freight_with_tax, 
+      vendor_freight_with_tax, last_customer_freight_with_tax, 
+      last_vendor_freight_with_tax, create_user_id, 
+      create_time)
+    values (#{waybillId,jdbcType=INTEGER}, #{customerFreightWithTax,jdbcType=DECIMAL}, 
+      #{vendorFreightWithTax,jdbcType=DECIMAL}, #{lastCustomerFreightWithTax,jdbcType=DECIMAL}, 
+      #{lastVendorFreightWithTax,jdbcType=DECIMAL}, #{createUserId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="waybill_amount_id" keyProperty="waybillAmountId" parameterType="com.juma.tgm.waybill.domain.WaybillAmount" useGeneratedKeys="true">
+    insert into waybill_amount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="waybillId != null">
+        waybill_id,
+      </if>
+      <if test="customerFreightWithTax != null">
+        customer_freight_with_tax,
+      </if>
+      <if test="vendorFreightWithTax != null">
+        vendor_freight_with_tax,
+      </if>
+      <if test="lastCustomerFreightWithTax != null">
+        last_customer_freight_with_tax,
+      </if>
+      <if test="lastVendorFreightWithTax != null">
+        last_vendor_freight_with_tax,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="waybillId != null">
+        #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="customerFreightWithTax != null">
+        #{customerFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="vendorFreightWithTax != null">
+        #{vendorFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="lastCustomerFreightWithTax != null">
+        #{lastCustomerFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="lastVendorFreightWithTax != null">
+        #{lastVendorFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.juma.tgm.waybill.domain.WaybillAmount">
+    update waybill_amount
+    <set>
+      <if test="waybillId != null">
+        waybill_id = #{waybillId,jdbcType=INTEGER},
+      </if>
+      <if test="customerFreightWithTax != null">
+        customer_freight_with_tax = #{customerFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="vendorFreightWithTax != null">
+        vendor_freight_with_tax = #{vendorFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="lastCustomerFreightWithTax != null">
+        last_customer_freight_with_tax = #{lastCustomerFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="lastVendorFreightWithTax != null">
+        last_vendor_freight_with_tax = #{lastVendorFreightWithTax,jdbcType=DECIMAL},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where waybill_amount_id = #{waybillAmountId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.juma.tgm.waybill.domain.WaybillAmount">
+    update waybill_amount
+    set waybill_id = #{waybillId,jdbcType=INTEGER},
+      customer_freight_with_tax = #{customerFreightWithTax,jdbcType=DECIMAL},
+      vendor_freight_with_tax = #{vendorFreightWithTax,jdbcType=DECIMAL},
+      last_customer_freight_with_tax = #{lastCustomerFreightWithTax,jdbcType=DECIMAL},
+      last_vendor_freight_with_tax = #{lastVendorFreightWithTax,jdbcType=DECIMAL},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where waybill_amount_id = #{waybillAmountId,jdbcType=INTEGER}
+  </update>
+  <insert id="insertBatch" keyProperty="waybillAmountId" parameterType="java.util.List" useGeneratedKeys="true">
+    insert into waybill_amount
+    (waybill_id,customer_freight_with_tax,vendor_freight_with_tax,last_customer_freight_with_tax,last_vendor_freight_with_tax,create_user_id,create_time) values
+    <foreach collection="list" index="index" item="item" separator=",">
+      (#{item.waybillId},#{item.customerFreightWithTax},#{item.vendorFreightWithTax},#{item.lastCustomerFreightWithTax},#{item.lastVendorFreightWithTax},#{item.createUserId},#{item.createTime})
+    </foreach>
+  </insert>
+  <update id="updateBatchByPrimaryKey" parameterType="java.util.List">
+    <foreach close="" collection="list" index="index" item="item" open="" separator=";">
+      update waybill_amount
+      <set>
+        waybill_amount_id = #{item.waybillAmountId},
+        waybill_id = #{item.waybillId},
+        customer_freight_with_tax = #{item.customerFreightWithTax},
+        vendor_freight_with_tax = #{item.vendorFreightWithTax},
+        last_customer_freight_with_tax = #{item.lastCustomerFreightWithTax},
+        last_vendor_freight_with_tax = #{item.lastVendorFreightWithTax},
+        create_user_id = #{item.createUserId},
+        create_time = #{item.createTime},
+      </set>
+      where waybill_amount_id = #{item.waybillAmountId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchByPrimaryKeySelective" parameterType="java.util.List">
+    <foreach close="" collection="list" index="index" item="item" open="" separator=";">
+      update waybill_amount
+      <set>
+        <if test="item.waybillId != null">
+          waybill_id = #{item.waybillId,jdbcType=INTEGER},
+        </if>
+        <if test="item.customerFreightWithTax != null">
+          customer_freight_with_tax = #{item.customerFreightWithTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.vendorFreightWithTax != null">
+          vendor_freight_with_tax = #{item.vendorFreightWithTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.lastCustomerFreightWithTax != null">
+          last_customer_freight_with_tax = #{item.lastCustomerFreightWithTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.lastVendorFreightWithTax != null">
+          last_vendor_freight_with_tax = #{item.lastVendorFreightWithTax,jdbcType=DECIMAL},
+        </if>
+        <if test="item.createUserId != null">
+          create_user_id = #{item.createUserId,jdbcType=INTEGER},
+        </if>
+        <if test="item.createTime != null">
+          create_time = #{item.createTime,jdbcType=TIMESTAMP},
+        </if>
+      </set>
+      where waybill_amount_id = #{item.waybillAmountId,jdbcType=INTEGER}
+    </foreach>
+  </update>
+</mapper>

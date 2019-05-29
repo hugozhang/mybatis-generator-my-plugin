@@ -22,7 +22,7 @@ public class MapperPlugin extends PluginAdapter {
             IntrospectedTable introspectedTable) {
         return false;
     }*/
-
+    @Override
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
         MapperGeneratorExt mapperGeneratorExt = new MapperGeneratorExt();
         mapperGeneratorExt.setContext(context);
@@ -33,7 +33,7 @@ public class MapperPlugin extends PluginAdapter {
         for (Iterator<CompilationUnit> iterator = units.iterator(); iterator.hasNext(); generatedFile
                 .add(genJavaFile)) {
             CompilationUnit unit =  iterator.next();
-            genJavaFile = new GeneratedJavaFile(unit, context.getJavaModelGeneratorConfiguration().getTargetProject(),
+            genJavaFile = new GeneratedJavaFile(unit, context.getJavaClientGeneratorConfiguration().getTargetProject(),
                     context.getProperty("javaFileEncoding"), context.getJavaFormatter());
         }
         return generatedFile;
