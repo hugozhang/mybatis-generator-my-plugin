@@ -46,7 +46,7 @@ public class ModelSwaggerPlugin extends PluginAdapter {
     }
     /**生成字段**/
     @Override
-    public boolean modelFieldGenerated(final Field field, final TopLevelClass topLevelClass, final IntrospectedColumn introspectedColumn, final IntrospectedTable introspectedTable, final ModelClassType modelClassType) {
+    public boolean modelFieldGenerated(Field field, TopLevelClass topLevelClass, IntrospectedColumn introspectedColumn, IntrospectedTable introspectedTable, ModelClassType modelClassType) {
         if( StringUtils.isBlank(introspectedColumn.getRemarks()) ){ return true; }
         field.addAnnotation(ANNOTATION_FIELD +"(\""+escape(introspectedColumn.getRemarks())+"\")");
         return true;
