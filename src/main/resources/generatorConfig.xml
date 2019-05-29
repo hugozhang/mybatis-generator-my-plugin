@@ -13,13 +13,13 @@
 		<plugin type="org.mybatis.generator.my.plugins.PaginationPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ExampleEnhancedPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ModelEnhancedPlugin"></plugin>
+		<plugin type="org.mybatis.generator.my.plugins.ModelSwaggerPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.XmlFileOverwritePlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.InsertBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.UpdateBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.MapperPlugin"></plugin>
 
-		<commentGenerator
-			type="org.mybatis.generator.my.plugins.TableCommentGenerator">
+		<commentGenerator>
 			<!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
 			<!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
 			<property name="suppressDate" value="true" />
@@ -42,19 +42,16 @@
 
 
 		<!--生成Model类存放位置 -->
-		<javaModelGenerator targetPackage="${model.package}"
-			targetProject="${model.target.project}">
+		<javaModelGenerator targetPackage="${model.package}" targetProject="${model.target.project}">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!--生成映射文件存放位置 -->
-		<sqlMapGenerator targetPackage="${xml.mapper.package}"
-			targetProject="${xml.target.project}">
+		<sqlMapGenerator targetPackage="${xml.mapper.package}" targetProject="${xml.target.project}">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!--生成Dao类存放位置 -->
-		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="${dao.package}" targetProject="${dao.target.project}">
+		<javaClientGenerator targetPackage="${dao.package}" targetProject="${dao.target.project}" type="XMLMAPPER" >
 			<property name="enableSubPackages" value="true" />
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
