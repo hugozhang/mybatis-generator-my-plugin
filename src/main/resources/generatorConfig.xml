@@ -6,6 +6,14 @@
 	<!--导入属性配置 -->
 	<properties resource="mybatis-generator.properties" />
 	<context id="test" targetRuntime="MyBatis3">
+		
+		<!--分割SQL关键字 默认为false -->
+		<property name="autoDelimitKeywords" value="true" />
+		<!--分割关键字的前符号 -->
+		<property name="beginningDelimiter" value="`" />
+		<!--分割关键字的后符号 -->
+		<property name="endingDelimiter" value="`" />
+	
 		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
@@ -18,8 +26,9 @@
 		<plugin type="org.mybatis.generator.my.plugins.UpdateBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.MapperPlugin"></plugin>
 
-		<commentGenerator
-			type="org.mybatis.generator.my.plugins.TableCommentGenerator">
+		<!-- type="org.mybatis.generator.my.plugins.TableCommentGenerator" -->
+
+		<commentGenerator>
 			<!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
 			<!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
 			<property name="suppressDate" value="true" />
@@ -27,13 +36,10 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection
-                driverClass="${jdbc.driver}"
-                connectionURL="${jdbc.url}"
-                userId="${jdbc.username}"
-                password="${jdbc.password}">
-        </jdbcConnection>
-        
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+		</jdbcConnection>
+
 		<javaTypeResolver>
 			<!-- This property is used to specify whether MyBatis Generator should 
 				force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
@@ -59,13 +65,102 @@
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="waybill_amount" domainObjectName="WaybillAmount"
+		<!-- <table schema="oms" tableName="application" domainObjectName="Application"
 			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="true" enableSelectByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="false">
-			<generatedKey column="waybill_amount_id" sqlStatement="JDBC"
+			<generatedKey column="app_id" sqlStatement="JDBC"
 				identity="true" />
 		</table>
+		<table schema="oms" tableName="application" domainObjectName="Application"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="app_id" sqlStatement="JDBC"
+				identity="true" />
+			<columnOverride column="is_delete" javaType="Boolean" />
+		</table>
+		<table schema="oms" tableName="application_link"
+			domainObjectName="ApplicationLink" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="true"
+			enableSelectByExample="true" selectByExampleQueryId="false">
+			<generatedKey column="link_id" sqlStatement="JDBC"
+				identity="true" />
+		</table>
+		<table schema="oms" tableName="order" domainObjectName="Order"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="order_id" sqlStatement="JDBC"
+				identity="true" />
+			<columnOverride column="is_delete" javaType="Boolean" />
+		</table>
+		<table schema="oms" tableName="order_address" domainObjectName="OrderAddress"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="address_id" sqlStatement="JDBC"
+				identity="true" />
+		</table>
+		<table schema="oms" tableName="order_cargo" domainObjectName="OrderCargo"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="cargo_id" sqlStatement="JDBC"
+				identity="true" />
+		</table>
+		<table schema="oms" tableName="order_optimize" domainObjectName="OrderOptimize"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="optimize_id" sqlStatement="JDBC"
+				identity="true" />
+		</table>
+		<table schema="oms" tableName="order_text" domainObjectName="OrderText"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="text_id" sqlStatement="JDBC"
+				identity="true" />
+		</table>
+
+		<table schema="oms" tableName="order" domainObjectName="Order"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="order_id" sqlStatement="JDBC"
+				identity="true" />
+			<columnOverride column="is_delete" javaType="Boolean" />
+		</table>
+
+		<table schema="oms" tableName="optimize_param"
+			domainObjectName="OptimizeParam" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="true"
+			enableSelectByExample="true" selectByExampleQueryId="false">
+			<generatedKey column="param_id" sqlStatement="JDBC"
+				identity="true" />
+		</table>
+		
+		<table schema="oms" tableName="order" domainObjectName="Order"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="order_id" sqlStatement="JDBC"
+				identity="true" />
+			<columnOverride column="is_delete" javaType="Boolean" />
+		</table>
+		
+		-->
+		<table schema="oms" tableName="order" domainObjectName="Order"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
+			selectByExampleQueryId="false">
+			<generatedKey column="order_id" sqlStatement="JDBC"
+				identity="true" />
+				<columnOverride column="is_assign" javaType="Boolean" />
+				<columnOverride column="is_delete" javaType="Boolean" />
+		</table>
+		
 
 	</context>
 </generatorConfiguration>

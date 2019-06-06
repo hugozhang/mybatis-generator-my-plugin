@@ -8,7 +8,6 @@ import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.my.mapper.MapperGeneratorExt;
 
 public class MapperPlugin extends PluginAdapter {
@@ -33,7 +32,7 @@ public class MapperPlugin extends PluginAdapter {
         for (Iterator<CompilationUnit> iterator = units.iterator(); iterator.hasNext(); generatedFile
                 .add(genJavaFile)) {
             CompilationUnit unit =  iterator.next();
-            genJavaFile = new GeneratedJavaFile(unit, context.getJavaModelGeneratorConfiguration().getTargetProject(),
+            genJavaFile = new GeneratedJavaFile(unit, context.getJavaClientGeneratorConfiguration().getTargetProject(),
                     context.getProperty("javaFileEncoding"), context.getJavaFormatter());
         }
         return generatedFile;

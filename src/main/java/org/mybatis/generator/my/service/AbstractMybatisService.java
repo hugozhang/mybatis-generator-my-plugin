@@ -17,7 +17,7 @@ import org.mybatis.generator.my.page.PageFunction;
  * @param <Ex> Ex = example   实体类对应的Example
  * @Copyright: 2019 www.jumapeisong.com Inc. All rights reserved.
  */
-public abstract class AbstractService<En, Ex> {
+public abstract class AbstractMybatisService<En, Ex> implements MybatisService<En, Ex> {
 
     public abstract Mapper<En, Ex> getMapper();
 
@@ -31,7 +31,7 @@ public abstract class AbstractService<En, Ex> {
      * @return: Page<E>      
      * @throws
      */
-    public <In,Out> Page<Out> pageOf(int pageSize,int pageNo,PageFunction<Out> func) {
+    public <Out> Page<Out> pageOf(int pageSize,int pageNo,PageFunction<Out> func) {
         Page<Out> p = new Page<Out>();
         if(func == null) return p;
         p.setPageNo(pageNo);
@@ -58,6 +58,10 @@ public abstract class AbstractService<En, Ex> {
 
     public int insertSelective(En record) {
         return getMapper().insertSelective(record);
+    }
+    
+    public int insertBatchSelective(List<En> list) {
+        return getMapper().insertBatchSelective(list);
     }
 
     public int insertBatch(List<En> list) {
