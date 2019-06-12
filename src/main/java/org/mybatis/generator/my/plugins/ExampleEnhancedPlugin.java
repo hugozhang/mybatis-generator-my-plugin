@@ -45,24 +45,6 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
 
                 commentGenerator.addGeneralMethodComment(method, introspectedTable);
                 innerClass.addMethod(method);
-                
-                method = new Method();
-                method.setVisibility(JavaVisibility.PUBLIC);
-                method.setName("orderBy");
-                method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "orderByClauses", true));
-                method.setReturnType(topLevelClass.getType());
-                method.addBodyLine("StringBuilder buffer = new StringBuilder();");
-                method.addBodyLine("if(orderByClauses == null) throw new RuntimeException(\"order by field cannot be null\");");
-                method.addBodyLine("for(String field : orderByClauses) {");
-                method.addBodyLine("if(field == null || field.trim().length() == 0) throw new RuntimeException(\"order by field cannot be null\");");
-                method.addBodyLine("buffer.append(field);");
-                method.addBodyLine("buffer.append(\",\");");
-                method.addBodyLine("}");
-                method.addBodyLine("if(buffer.length() == 0) return this;");
-                method.addBodyLine("this.setOrderByClause(buffer.substring(0, buffer.length() - 1));");
-                method.addBodyLine("return this;");
-                commentGenerator.addGeneralMethodComment(method, introspectedTable);
-                topLevelClass.addMethod(method);
             }
         }
 
@@ -71,8 +53,35 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
             if (!"createCriteriaInternal".equals(method.getName())) continue;
             method.getBodyLines().set(0, "Criteria criteria = new Criteria(this);");
         }
-        
-        
+
+        Method method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setName("orderBy");
+        method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "orderByClauses", true));
+        method.setReturnType(topLevelClass.getType());
+        method.addBodyLine("StringBuilder buffer = new StringBuilder();");
+        method.addBodyLine("if(orderByClauses == null) throw new RuntimeException(\"order by field cannot be null\");");
+        method.addBodyLine("for(String field : orderByClauses) {");
+        method.addBodyLine("if(field == null || field.trim().length() == 0) throw new RuntimeException(\"order by field cannot be null\");");
+        method.addBodyLine("buffer.append(field);");
+        method.addBodyLine("buffer.append(\",\");");
+        method.addBodyLine("}");
+        method.addBodyLine("if(buffer.length() == 0) return this;");
+        method.addBodyLine("this.setOrderByClause(buffer.substring(0, buffer.length() - 1));");
+        method.addBodyLine("return this;");
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
+
+        method = new Method();
+        method.setVisibility(JavaVisibility.PUBLIC);
+        method.setName("limit");
+        method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageNo", false));
+        method.setReturnType(topLevelClass.getType());
+        method.addBodyLine("this.startOffSet = (pageNo - 1) * size;");
+        method.addBodyLine("return this;");
+
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        topLevelClass.addMethod(method);
 
         return true;
     }
@@ -84,12 +93,11 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
 
     public static void main(String[] args) {
         String value = "%null  %";
-        
+
         String newVaule = value.replaceAll("%", "");
-        
+
         System.out.println(newVaule);
-        
-        
+
     }
-    
+
 }

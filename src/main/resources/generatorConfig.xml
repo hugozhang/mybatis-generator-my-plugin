@@ -152,7 +152,7 @@
 		
 		-->
 		<table schema="oms" tableName="order" domainObjectName="Order"
-			enableCountByExample="false" enableUpdateByExample="false"
+			enableCountByExample="true" enableUpdateByExample="false"
 			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="false">
 			<generatedKey column="order_id" sqlStatement="JDBC"
