@@ -76,8 +76,10 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName("limit");
         method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageNo", false));
+        method.addParameter(new Parameter(FullyQualifiedJavaType.getIntInstance(), "pageSize", false));
         method.setReturnType(topLevelClass.getType());
-        method.addBodyLine("this.startOffSet = (pageNo - 1) * size;");
+        method.addBodyLine("this.size = pageSize;");
+        method.addBodyLine("this.startOffSet = (pageNo - 1) * pageSize;");
         method.addBodyLine("return this;");
 
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
