@@ -44,8 +44,8 @@ public abstract class AbstractMybatisService<En, Ex> implements MybatisService<E
         return p;
     }
 
-    public int deleteByExample(Ex example) {
-        return getMapper().deleteByExample(example);
+    public int deleteByPrimaryKey(Integer primaryKey) {
+        return getMapper().deleteByPrimaryKey(primaryKey);
     }
     
     public long countByExample(Ex example) {

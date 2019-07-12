@@ -9,7 +9,7 @@ public interface MybatisService <En, Ex> {
 
     <Out> Page<Out> pageOf(int pageSize,int pageNo,PageFunction<Out> func);
     
-    int deleteByExample(Ex example);
+    int deleteByPrimaryKey(Integer primaryKey);
     
     long countByExample(Ex example);
     
