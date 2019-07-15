@@ -6,6 +6,14 @@
 	<!--导入属性配置 -->
 	<properties resource="mybatis-generator.properties" />
 	<context id="test" targetRuntime="MyBatis3">
+
+		<!--分割SQL关键字 默认为false -->
+		<property name="autoDelimitKeywords" value="true" />
+		<!--分割关键字的前符号 -->
+		<property name="beginningDelimiter" value="`" />
+		<!--分割关键字的后符号 -->
+		<property name="endingDelimiter" value="`" />
+
 		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
@@ -27,13 +35,10 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 
-		<jdbcConnection
-                driverClass="${jdbc.driver}"
-                connectionURL="${jdbc.url}"
-                userId="${jdbc.username}"
-                password="${jdbc.password}">
-        </jdbcConnection>
-        
+		<jdbcConnection driverClass="${jdbc.driver}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+		</jdbcConnection>
+
 		<javaTypeResolver>
 			<!-- This property is used to specify whether MyBatis Generator should 
 				force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
@@ -56,13 +61,15 @@
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="waybill_amount" domainObjectName="WaybillAmount"
+
+<table schema="tgm" tableName="task_timeline" domainObjectName="TaskTimeline"
 			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="true" enableSelectByExample="false"
+			enableDeleteByExample="true" enableSelectByExample="true"
 			selectByExampleQueryId="false">
-			<generatedKey column="waybill_amount_id" sqlStatement="JDBC"
+			<generatedKey column="timeline_id" sqlStatement="JDBC"
 				identity="true" />
 		</table>
+
 
 	</context>
 </generatorConfiguration>

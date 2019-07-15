@@ -8,7 +8,6 @@ import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.my.mapper.MapperGeneratorExt;
 
 public class MapperPlugin extends PluginAdapter {
