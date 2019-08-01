@@ -16,8 +16,6 @@ import java.util.List;
 public interface Mapper<En, Ex> {
 
     int deleteByPrimaryKey(Integer primaryKey);
-    
-    int deleteByExample(Ex example);
 
     long countByExample(Ex example);
     

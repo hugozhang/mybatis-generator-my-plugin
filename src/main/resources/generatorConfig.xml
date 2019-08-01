@@ -65,13 +65,13 @@
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
 
-
-<table schema="tgm" tableName="task_timeline" domainObjectName="TaskTimeline"
-			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="true" enableSelectByExample="true"
+		<table schema="tgm" tableName="task_scheduled" domainObjectName="TaskScheduled"
+			enableCountByExample="true" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="true" 
 			selectByExampleQueryId="false">
-			<generatedKey column="timeline_id" sqlStatement="JDBC"
-				identity="true" />
+				<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />
+				<columnOverride column="is_fixed_delivery" javaType="Boolean" />
+				<columnOverride column="is_delete" javaType="Boolean" />
 		</table>
 
 
