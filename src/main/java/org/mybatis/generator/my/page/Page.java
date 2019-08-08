@@ -15,7 +15,7 @@ public class Page<T> implements Serializable {
 
     private int totalPage = 0;
 
-    private List<T> results = new ArrayList<T>();
+    private Collection<T> results = new ArrayList<T>();
 
     public Page() {
 
@@ -65,11 +65,11 @@ public class Page<T> implements Serializable {
         this.total = total;
     }
 
-    public List<T> getResults() {
+    public Collection<T> getResults() {
         return results;
     }
 
-    public void setResults(List<T> results) {
+    public void setResults(Collection<T> results) {
         this.results = results;
     }
 

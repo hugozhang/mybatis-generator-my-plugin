@@ -55,14 +55,14 @@
 		<javaClientGenerator type="XMLMAPPER"
 			targetPackage="${dao.package}" targetProject="${dao.target.project}">
 			<property name="enableSubPackages" value="true" />
-			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
+			<property name="rootInterface" value="org.mybatis.generator.my.mapper.v2.Mapper" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="task_scheduled" domainObjectName="TaskScheduled"
+		<table schema="tgm" tableName="user_test" domainObjectName="UserTest"
 			   selectByExampleQueryId="false"
 			   enableUpdateByExample="false"
 			   enableDeleteByExample="false">
-				<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />
+				<generatedKey column="user_id" sqlStatement="JDBC" identity="true" />
 				<columnOverride column="is_fixed_delivery" javaType="Boolean" />
 				<columnOverride column="is_delete" javaType="Boolean" />
 		</table>

@@ -1,36 +1,34 @@
 package org.mybatis.generator.my.service;
 
-import org.mybatis.generator.my.page.Page;
-import org.mybatis.generator.my.where.Example;
-
 import java.util.List;
 
-public interface MybatisService <En> {
+import org.mybatis.generator.my.page.Page;
+import org.mybatis.generator.my.page.PageFunction;
 
-    Page<En> ofPage(Example example);
+public interface MybatisService <En, Ex> {
+
+    <Out> Page<Out> pageOf(int pageSize,int pageNo,PageFunction<Out> func);
 
     int deleteByPrimaryKey(Integer primaryKey);
-    
-    long countByExample(Example example);
-    
+
+    long countByExample(Ex example);
+
     int insert(En record);
-    
+
     int insertSelective(En record);
-    
+
     int insertBatch(List<En> list);
-    
+
     int insertBatchSelective(List<En> list);
-    
-    List<En> selectByExample(Example example);
-    
+
+    List<En> selectByExample(Ex example);
+
     En selectByPrimaryKey(Integer primaryKey);
 
-    int updateByPrimaryKey(Integer primaryKey);
-
     int updateByPrimaryKeySelective(En record);
-    
+
     int updateBatchByPrimaryKey(List<En> list);
-    
+
     int updateBatchByPrimaryKeySelective(List<En> list);
-    
+
 }
