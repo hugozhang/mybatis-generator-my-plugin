@@ -24,24 +24,24 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
                 Field field = new Field();
                 field.setVisibility(JavaVisibility.PRIVATE);
                 field.setType(topLevelClass.getType());
-                field.setName("example");
+                field.setName("where");
                 commentGenerator.addFieldComment(field, introspectedTable);
                 innerClass.addField(field);
 
                 List<Method> methods = innerClass.getMethods();
                 for (Method method : methods) {
                     if (method.isConstructor()) {
-                        method.addParameter(new Parameter(topLevelClass.getType(), "example"));
-                        method.addBodyLine("this.example = example;");
+                        method.addParameter(new Parameter(topLevelClass.getType(), "where"));
+                        method.addBodyLine("this.where = where;");
                         commentGenerator.addGeneralMethodComment(method, introspectedTable);
                     }
                 }
 
                 Method method = new Method();
                 method.setVisibility(JavaVisibility.PUBLIC);
-                method.setName("example");
+                method.setName("where");
                 method.setReturnType(topLevelClass.getType());
-                method.addBodyLine("return this.example;");
+                method.addBodyLine("return this.where;");
 
                 commentGenerator.addGeneralMethodComment(method, introspectedTable);
                 innerClass.addMethod(method);

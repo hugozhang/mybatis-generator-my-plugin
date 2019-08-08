@@ -1,5 +1,7 @@
 package org.mybatis.generator.my.mapper;
 
+import org.mybatis.generator.my.where.Example;
+
 import java.util.List;
 
 /**
@@ -10,14 +12,13 @@ import java.util.List;
  * @date:        2019年4月28日 下午2:44:55  
  *
  * @param <En> En = entity  实体类
- * @param <Ex> Ex = example   实体类对应的Example
  * @Copyright:   2019 www.jumapeisong.com Inc. All rights reserved.
  */
-public interface Mapper<En, Ex> {
+public interface Mapper<En> {
 
     int deleteByPrimaryKey(Integer primaryKey);
 
-    long countByExample(Ex example);
+    long countByExample(Example example);
     
     int insert(En record);
 
@@ -27,7 +28,7 @@ public interface Mapper<En, Ex> {
     
     int insertBatchSelective(List<En> list);
     
-    int updateByPrimaryKey(En record);
+    int updateByPrimaryKey(Integer primaryKey);
     
     int updateByPrimaryKeySelective(En record);
 
@@ -37,6 +38,6 @@ public interface Mapper<En, Ex> {
 
     En selectByPrimaryKey(Integer primaryKey);
     
-    List<En> selectByExample(Ex example);
+    List<En> selectByExample(Example example);
 
 }

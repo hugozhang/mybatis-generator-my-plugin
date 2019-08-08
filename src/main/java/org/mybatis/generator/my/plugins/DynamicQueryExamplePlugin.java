@@ -50,7 +50,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setConstructor(true);
         method.setName(type.getShortName());
-        method.addBodyLine("oredCriteria = new ArrayList<Criteria>();"); 
+        method.addBodyLine("criteriaList = new ArrayList<Criteria>();");
 
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
@@ -109,15 +109,15 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
 
         FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType("java.util.List<Criteria>"); 
         field.setType(fqjt);
-        field.setName("oredCriteria"); 
+        field.setName("criteriaList");
         commentGenerator.addFieldComment(field, introspectedTable);
         topLevelClass.addField(field);
 
         method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setReturnType(fqjt);
-        method.setName("getOredCriteria"); 
-        method.addBodyLine("return oredCriteria;"); 
+        method.setName("getCriteriaList");
+        method.addBodyLine("return criteriaList;");
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
 
@@ -125,7 +125,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName("or"); 
         method.addParameter(new Parameter(FullyQualifiedJavaType.getCriteriaInstance(), "criteria")); 
-        method.addBodyLine("oredCriteria.add(criteria);"); 
+        method.addBodyLine("criteriaList.add(criteria);");
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
 
@@ -134,7 +134,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.setName("or"); 
         method.setReturnType(FullyQualifiedJavaType.getCriteriaInstance());
         method.addBodyLine("Criteria criteria = createCriteriaInternal();"); 
-        method.addBodyLine("oredCriteria.add(criteria);"); 
+        method.addBodyLine("criteriaList.add(criteria);");
         method.addBodyLine("return criteria;"); 
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         topLevelClass.addMethod(method);
@@ -144,8 +144,8 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.setName("createCriteria"); 
         method.setReturnType(FullyQualifiedJavaType.getCriteriaInstance());
         method.addBodyLine("Criteria criteria = createCriteriaInternal();"); 
-        method.addBodyLine("if (oredCriteria.size() == 0) {"); 
-        method.addBodyLine("oredCriteria.add(criteria);"); 
+        method.addBodyLine("if (criteriaList.size() == 0) {");
+        method.addBodyLine("criteriaList.add(criteria);");
         method.addBodyLine("}"); 
         method.addBodyLine("return criteria;"); 
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
@@ -163,7 +163,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName("clear"); 
-        method.addBodyLine("oredCriteria.clear();"); 
+        method.addBodyLine("criteriaList.clear();");
         method.addBodyLine("orderByClause = null;"); 
         method.addBodyLine("distinct = false;"); 
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
@@ -1022,7 +1022,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         element.addElement(whereElement);
 
         XmlElement outerForEachElement = new XmlElement("foreach"); 
-        outerForEachElement.addAttribute(new Attribute("collection", "oredCriteria"));  
+        outerForEachElement.addAttribute(new Attribute("collection", "criteriaList"));
         outerForEachElement.addAttribute(new Attribute("item", "criteria"));  
         outerForEachElement.addAttribute(new Attribute("separator", "or"));  
         whereElement.addElement(outerForEachElement);
@@ -1074,13 +1074,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         XmlElement chooseElement = new XmlElement("choose"); 
         middleForEachElement.addElement(chooseElement);
 
-        XmlElement when = new XmlElement("when"); 
-        /*
-         * when.addAttribute(new Attribute("test", "criterion.noValue"));   when.addElement(new TextElement("and ${criterion.condition}")); 
-         * chooseElement.addElement(when);
-         */
-
-        when = new XmlElement("when"); 
+        XmlElement when = new XmlElement("when");
         when.addAttribute(new Attribute("test", "criterion.singleValue and !criterion.noValue"));  
         sb.setLength(0);
         sb.append("and ${criterion.condition} #{criterion.value"); 
