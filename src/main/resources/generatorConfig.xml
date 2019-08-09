@@ -14,18 +14,17 @@
 		<!--分割关键字的后符号 -->
 		<property name="endingDelimiter" value="`" />
 
-		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.PaginationPlugin"></plugin>
-		<plugin type="org.mybatis.generator.my.plugins.ExampleEnhancedPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ModelEnhancedPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ModelSwaggerPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.XmlFileOverwritePlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.InsertBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.UpdateBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.MapperPlugin"></plugin>
+		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePluginV2"></plugin>
 
 		<commentGenerator>
 			<!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
@@ -34,18 +33,14 @@
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-
 		<jdbcConnection driverClass="${jdbc.driver}"
 			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
 		</jdbcConnection>
-
 		<javaTypeResolver>
 			<!-- This property is used to specify whether MyBatis Generator should 
 				force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
-
-
 		<!--生成Model类存放位置 -->
 		<javaModelGenerator targetPackage="${model.package}" targetProject="${model.target.project}">
 			<property name="enableSubPackages" value="true" />
@@ -58,16 +53,16 @@
 		<!--生成Dao类存放位置 -->
 		<javaClientGenerator targetPackage="${dao.package}" targetProject="${dao.target.project}" type="XMLMAPPER" >
 			<property name="enableSubPackages" value="true" />
-			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
+			<property name="rootInterface" value="org.mybatis.generator.my.mapper.v2.Mapper" />
 		</javaClientGenerator>
 
-
-<table schema="tgm" tableName="task_timeline" domainObjectName="TaskTimeline"
-			enableCountByExample="false" enableUpdateByExample="false"
-			enableDeleteByExample="true" enableSelectByExample="true"
-			selectByExampleQueryId="false">
-			<generatedKey column="timeline_id" sqlStatement="JDBC"
-				identity="true" />
+		<table schema="tgm" tableName="user_test" delimitIdentifiers="true" domainObjectName="UserTest"
+			   selectByExampleQueryId="false"
+			   enableUpdateByExample="false"
+			   enableDeleteByExample="false">
+				<generatedKey column="user_id" sqlStatement="JDBC" identity="true" />
+				<columnOverride column="is_fixed_delivery" javaType="Boolean" />
+				<columnOverride column="is_delete" javaType="Boolean" />
 		</table>
 
 

@@ -5,7 +5,7 @@ import java.util.Collection;
 public interface PageFunction<Out> {
 
     int ofTotal();
-    
+
     Collection<Out> ofResults();
-    
+
 }
