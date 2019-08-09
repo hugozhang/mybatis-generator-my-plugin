@@ -25,6 +25,8 @@ public interface MybatisService <En, Ex> {
 
     En selectByPrimaryKey(Integer primaryKey);
 
+    int updateByPrimaryKey(En record);
+
     int updateByPrimaryKeySelective(En record);
 
     int updateBatchByPrimaryKey(List<En> list);

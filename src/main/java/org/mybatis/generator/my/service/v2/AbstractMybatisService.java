@@ -1,5 +1,6 @@
 package org.mybatis.generator.my.service.v2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.generator.my.mapper.v2.Mapper;
@@ -11,7 +12,7 @@ import org.mybatis.generator.my.where.Example;
  * @ClassName: AbstractService
  * @Description: 通用服务接口
  * @author: Hugozxh
- * @date: 2019年4月28日 下午2:12:42
+ * @date: 2019年8月8日 下午2:12:42
  *
  * @param <En> En = entity  实体类
  * @Copyright: 2019 www.jumapeisong.com Inc. All rights reserved.
@@ -22,7 +23,10 @@ public abstract class AbstractMybatisService<En> implements MybatisService<En> {
 
     public Page<En> ofPage(Example example) {
         int total = (int)getMapper().countByExample(example);
-        List<En> results = getMapper().selectByExample(example);
+        List<En> results = new ArrayList<>();
+        if (total != 0 ) {
+            results = getMapper().selectByExample(example);
+        }
         return new Page<>(example.getPageNo(),example.getPageSize(),total,results);
     }
 
@@ -58,8 +62,8 @@ public abstract class AbstractMybatisService<En> implements MybatisService<En> {
         return getMapper().selectByPrimaryKey(primaryKey);
     }
 
-    public int updateByPrimaryKey(Integer primaryKey) {
-        return getMapper().updateByPrimaryKey(primaryKey);
+    public int updateByPrimaryKey(En record) {
+        return getMapper().updateByPrimaryKey(record);
     }
 
     public int updateByPrimaryKeySelective(En record) {

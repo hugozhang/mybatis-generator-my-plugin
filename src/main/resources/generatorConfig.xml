@@ -58,7 +58,7 @@
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.v2.Mapper" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="user_test" domainObjectName="UserTest"
+		<table schema="tgm" tableName="user_test" delimitIdentifiers="true" domainObjectName="UserTest"
 			   selectByExampleQueryId="false"
 			   enableUpdateByExample="false"
 			   enableDeleteByExample="false">

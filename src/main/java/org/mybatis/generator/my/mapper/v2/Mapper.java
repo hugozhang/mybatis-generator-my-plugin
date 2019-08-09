@@ -28,7 +28,7 @@ public interface Mapper<En> {
     
     int insertBatchSelective(List<En> list);
     
-    int updateByPrimaryKey(Integer primaryKey);
+    int updateByPrimaryKey(En record);
     
     int updateByPrimaryKeySelective(En record);
 

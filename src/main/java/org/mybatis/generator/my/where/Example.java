@@ -11,14 +11,18 @@ public class Example {
 
     protected List<Criteria> criteriaList;
 
-    protected int pageNo = 1;
+    protected int pageNo = 0;
 
     protected int pageSize = 15;
 
     public Example() {
-        criteriaList = new ArrayList<Criteria>();
+        criteriaList = new ArrayList<>();
     }
 
+    /**
+     * 默认值<0,这样配合xml不生成limit
+     * @return
+     */
     public int getStartOffSet() {
         return (pageNo - 1) * pageSize;
     }
@@ -158,7 +162,7 @@ public class Example {
         }
 
         public Criteria lte(Enum<?> column,Object value) {
-            addCriterion(column.name() + " < ",value);
+            addCriterion(column.name() + " <= ",value);
             return (Criteria) this;
         }
 
@@ -169,6 +173,7 @@ public class Example {
             }
             return (Criteria) this;
         }
+
         public Criteria like(Enum<?> column,List<String> values) {
             addCriterion(column.name() + " like ",values);
             return (Criteria) this;

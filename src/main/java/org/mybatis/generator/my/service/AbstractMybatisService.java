@@ -76,6 +76,10 @@ public abstract class AbstractMybatisService<En, Ex> implements MybatisService<E
         return getMapper().selectByPrimaryKey(primaryKey);
     }
 
+    public int updateByPrimaryKey(En record) {
+        return getMapper().updateByPrimaryKey(record);
+    }
+
     public int updateByPrimaryKeySelective(En record) {
         return getMapper().updateByPrimaryKeySelective(record);
     }
