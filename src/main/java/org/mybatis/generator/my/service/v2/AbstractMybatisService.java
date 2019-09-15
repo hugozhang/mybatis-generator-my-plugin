@@ -46,10 +46,6 @@ public abstract class AbstractMybatisService<En> implements MybatisService<En> {
         return getMapper().insertSelective(record);
     }
     
-    public int insertBatchSelective(List<En> list) {
-        return getMapper().insertBatchSelective(list);
-    }
-
     public int insertBatch(List<En> list) {
         return getMapper().insertBatch(list);
     }
