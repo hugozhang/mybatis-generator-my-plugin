@@ -29,16 +29,7 @@ public class Page<T> implements Serializable {
     }
 
     public int getTotalPage() {
-        if (total % pageSize == 0) {
-            totalPage = total/pageSize;
-        } else {
-            totalPage = total/pageSize + 1;
-        }
-        return totalPage;
-    }
-
-    public void setTotalPage(int totalPage) {
-        this.totalPage = totalPage;
+        return total % pageSize == 0 ? total/pageSize : (total/pageSize + 1);
     }
 
     public int getPageNo() {

@@ -25,15 +25,15 @@ public class ModelEnhancedPlugin extends PluginAdapter {
         commentGenerator.addEnumComment(innerEnum, introspectedTable);
         topLevelClass.addInnerEnum(innerEnum);
 
-        for (IntrospectedColumn introspectedColumn : introspectedTable.getNonBLOBColumns()) {
-            innerEnum.addEnumConstant(introspectedColumn.getActualColumnName());
+        for (IntrospectedColumn introspectedColumn : introspectedTable.getAllColumns()) {
+            innerEnum.addEnumConstant(introspectedColumn.getJavaProperty());
         }
 
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName("asc");
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.addBodyLine("return this.name() + \" ASC\";");
+        method.addBodyLine("return column() + \" ASC\";");
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         innerEnum.addMethod(method);
 
@@ -41,27 +41,27 @@ public class ModelEnhancedPlugin extends PluginAdapter {
         method.setVisibility(JavaVisibility.PUBLIC);
         method.setName("desc");
         method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-        method.addBodyLine("return this.name() + \" DESC\";");
+        method.addBodyLine("return column() + \" DESC\";");
         commentGenerator.addGeneralMethodComment(method, introspectedTable);
         innerEnum.addMethod(method);
 
-//        method = new Method();
-//        method.setVisibility(JavaVisibility.PRIVATE);
-//        method.setName("column");
-//        method.setReturnType(FullyQualifiedJavaType.getStringInstance());
-//        method.addBodyLine("StringBuilder buffer = new StringBuilder();");
-//        method.addBodyLine("char[] charArray = this.name().toCharArray();");
-//        method.addBodyLine("for(char ch : charArray) {");
-//        method.addBodyLine("if(Character.isUpperCase(ch)){");
-//        method.addBodyLine("buffer.append(\"_\");");
-//        method.addBodyLine("buffer.append(Character.toLowerCase(ch));");
-//        method.addBodyLine("} else {");
-//        method.addBodyLine("buffer.append(ch);");
-//        method.addBodyLine("}");
-//        method.addBodyLine("}");
-//        method.addBodyLine("return buffer.toString();");
-//        commentGenerator.addGeneralMethodComment(method, introspectedTable);
-//        innerEnum.addMethod(method);
+        method = new Method();
+        method.setVisibility(JavaVisibility.PRIVATE);
+        method.setName("column");
+        method.setReturnType(FullyQualifiedJavaType.getStringInstance());
+        method.addBodyLine("StringBuilder buffer = new StringBuilder();");
+        method.addBodyLine("char[] charArray = this.name().toCharArray();");
+        method.addBodyLine("for(char ch : charArray) {");
+        method.addBodyLine("if(Character.isUpperCase(ch)){");
+        method.addBodyLine("buffer.append(\"_\");");
+        method.addBodyLine("buffer.append(Character.toLowerCase(ch));");
+        method.addBodyLine("} else {");
+        method.addBodyLine("buffer.append(ch);");
+        method.addBodyLine("}");
+        method.addBodyLine("}");
+        method.addBodyLine("return buffer.toString();");
+        commentGenerator.addGeneralMethodComment(method, introspectedTable);
+        innerEnum.addMethod(method);
         return true;
     }
 

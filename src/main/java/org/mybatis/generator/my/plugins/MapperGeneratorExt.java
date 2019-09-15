@@ -1,4 +1,4 @@
-package org.mybatis.generator.my.mapper;
+package org.mybatis.generator.my.plugins;
 
 /**
  *    Copyright 2006-2016 the original author or authors.

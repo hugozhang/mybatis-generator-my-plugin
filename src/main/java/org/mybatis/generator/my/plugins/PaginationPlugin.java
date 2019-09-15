@@ -34,7 +34,7 @@ public class PaginationPlugin extends PluginAdapter {
         // 1);
         XmlElement ifElement = new XmlElement("if");
         ifElement.addAttribute(new Attribute("test", "startOffSet != null and startOffSet>=0"));
-        ifElement.addElement(new TextElement("limit ${startOffSet} , ${pageSize}"));
+        ifElement.addElement(new TextElement("limit ${startOffSet} , ${size}"));
 
      
 

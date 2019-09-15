@@ -8,7 +8,6 @@ import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.my.mapper.MapperGeneratorExt;
 
 public class MapperPlugin extends PluginAdapter {
 
@@ -16,7 +15,7 @@ public class MapperPlugin extends PluginAdapter {
     public boolean validate(List<String> warnings) {
         return true;
     }
-    
+
     /*public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element,
             IntrospectedTable introspectedTable) {
         return false;

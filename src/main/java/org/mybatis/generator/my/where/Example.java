@@ -321,8 +321,4 @@ public class Example {
             this(condition, value, secondValue, null);
         }
     }
-
-    public static void main(String[] args) {
-
-    }
 }

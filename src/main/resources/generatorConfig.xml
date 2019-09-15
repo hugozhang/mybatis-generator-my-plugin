@@ -14,30 +14,24 @@
 		<!--分割关键字的后符号 -->
 		<property name="endingDelimiter" value="`" />
 
+		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.PaginationPlugin"></plugin>
+		<plugin type="org.mybatis.generator.my.plugins.ExampleEnhancedPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ModelEnhancedPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.XmlFileOverwritePlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.InsertBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.UpdateBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.MapperPlugin"></plugin>
-		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePluginV2"></plugin>
+<!--		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePluginV2"></plugin>-->
 
-		<commentGenerator>
-			<!-- 这个元素用来去除指定生成的注释中是否包含生成的日期 false:表示保护 -->
-			<!-- 如果生成日期，会造成即使修改一个字段，整个实体类所有属性都会发生变化，不利于版本控制，所以设置为true -->
-			<property name="suppressDate" value="true" />
-			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-			<property name="suppressAllComments" value="true" />
-		</commentGenerator>
+		<commentGenerator type="org.mybatis.generator.my.comment.MySQLCommentGenerator"/>
 		<jdbcConnection driverClass="${jdbc.driver}"
 			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
 		</jdbcConnection>
 		<javaTypeResolver>
-			<!-- This property is used to specify whether MyBatis Generator should 
-				force the use of java.math.BigDecimal for DECIMAL and NUMERIC fields, -->
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		<!--生成Model类存放位置 -->
@@ -58,14 +52,110 @@
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.v2.Mapper" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="user_test" delimitIdentifiers="true" domainObjectName="UserTest"
-			   selectByExampleQueryId="false"
-			   enableUpdateByExample="false"
-			   enableDeleteByExample="false">
-				<generatedKey column="user_id" sqlStatement="JDBC" identity="true" />
-				<columnOverride column="is_fixed_delivery" javaType="Boolean" />
-				<columnOverride column="is_delete" javaType="Boolean" />
-		</table>
+				<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"
+					   selectByExampleQueryId="false"
+					   enableUpdateByExample="false"
+					   enableDeleteByExample="false">
+						<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />
+						<columnOverride column="is_fixed_delivery" javaType="Boolean"/>
+						<columnOverride column="is_delete" javaType="Boolean"/>
+		                <columnOverride column="is_split" javaType="Boolean"/>
+				</table>
+
+
+
+
+<!--		<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--				<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />-->
+<!--				<columnOverride column="is_fixed_delivery" javaType="Boolean"/>-->
+<!--				<columnOverride column="is_delete" javaType="Boolean"/>-->
+<!--                <columnOverride column="is_split" javaType="Boolean"/>-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="task_selected_report" delimitIdentifiers="true" domainObjectName="TaskSelectedReport"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="report_id" sqlStatement="JDBC" identity="true" />-->
+<!--		</table>-->
+
+
+<!--		<table schema="tgm" tableName="task_device" delimitIdentifiers="true" domainObjectName="TaskDevice"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="device_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="guide_pricing_rule" jdbcType="VARCHAR" />-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="project_delivery_setting" delimitIdentifiers="true" domainObjectName="ProjectDeliverySetting"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="setting_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="is_call_auction" javaType="Boolean"/>-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="task_param" delimitIdentifiers="true" domainObjectName="TaskParam"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="param_id" sqlStatement="JDBC" identity="true" />-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="task_device" delimitIdentifiers="true" domainObjectName="TaskDevice"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="device_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="guide_pricing_rule" jdbcType="VARCHAR" />-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--				<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />-->
+<!--				<columnOverride column="is_fixed_delivery" javaType="Boolean"/>-->
+<!--				<columnOverride column="is_delete" javaType="Boolean"/>-->
+<!--                <columnOverride column="is_split" javaType="Boolean"/>-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="task_ack" delimitIdentifiers="true" domainObjectName="TaskAck"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="ack_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="vendor_bidding_rule" jdbcType="VARCHAR" />-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="self_truck_region_cost" delimitIdentifiers="true" domainObjectName="SelfTruckRegionCost"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="region_cost_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="is_delete" javaType="Boolean"/>-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="self_truck_type_cost" delimitIdentifiers="true" domainObjectName="SelfTruckTypeCost"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="truck_type_cost_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="is_delete" javaType="Boolean"/>-->
+<!--		</table>-->
+
+<!--		<table schema="tgm" tableName="form_vendor_charge" delimitIdentifiers="true" domainObjectName="FormVendorCharge"-->
+<!--			   selectByExampleQueryId="false"-->
+<!--			   enableUpdateByExample="false"-->
+<!--			   enableDeleteByExample="false">-->
+<!--			<generatedKey column="form_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="is_delete" javaType="Boolean"/>-->
+<!--			<columnOverride column="form_element_content" jdbcType="VARCHAR" />-->
+<!--		</table>-->
 
 
 	</context>

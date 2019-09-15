@@ -19,8 +19,6 @@ public interface MybatisService <En, Ex> {
 
     int insertBatch(List<En> list);
 
-    int insertBatchSelective(List<En> list);
-
     List<En> selectByExample(Ex example);
 
     En selectByPrimaryKey(Integer primaryKey);
