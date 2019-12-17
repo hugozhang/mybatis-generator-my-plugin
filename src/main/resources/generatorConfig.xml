@@ -49,23 +49,53 @@
 		<javaClientGenerator type="XMLMAPPER"
 			targetPackage="${dao.package}" targetProject="${dao.target.project}">
 			<property name="enableSubPackages" value="true" />
-			<property name="rootInterface" value="org.mybatis.generator.my.mapper.v2.Mapper" />
+			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
 
-				<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"
+
+<!--				<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"-->
+<!--					   selectByExampleQueryId="false"-->
+<!--					   enableUpdateByExample="false"-->
+<!--					   enableDeleteByExample="false">-->
+<!--						<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />-->
+<!--						<columnOverride column="is_fixed_delivery" javaType="Boolean"/>-->
+<!--						<columnOverride column="is_delete" javaType="Boolean"/>-->
+<!--		                <columnOverride column="is_split" javaType="Boolean"/>-->
+<!--				</table>-->
+
+<!--				<table schema="tgm" tableName="project" delimitIdentifiers="true" domainObjectName="Project"-->
+<!--					   selectByExampleQueryId="false"-->
+<!--					   enableUpdateByExample="false"-->
+<!--					   enableDeleteByExample="false">-->
+<!--						<generatedKey column="project_id" sqlStatement="JDBC" identity="true" />-->
+<!--						<columnOverride column="is_receivable_first" javaType="Boolean"/>-->
+<!--						<columnOverride column="is_enable" javaType="Boolean"/>-->
+<!--					    <columnOverride column="is_running" javaType="Boolean"/>-->
+<!--		                <columnOverride column="is_receive_daily_sms" javaType="Boolean"/>-->
+<!--						<columnOverride column="try_work_pass_attachment" jdbcType="VARCHAR" />-->
+<!--						<columnOverride column="try_work_protocol" jdbcType="VARCHAR" />-->
+<!--				</table>-->
+
+
+<!--		<table schema="tgm" tableName="road_map_price_rule" delimitIdentifiers="true" domainObjectName="RoadMapPriceRule"-->
+<!--					   enableUpdateByExample="false"-->
+<!--					   enableDeleteByExample="false">-->
+<!--					<generatedKey column="road_map_price_rule_id" sqlStatement="JDBC" identity="true" />-->
+<!--			<columnOverride column="is_enable" javaType="Boolean" />-->
+<!--		</table>-->
+
+				<table schema="tgm" tableName="task_param" delimitIdentifiers="true" domainObjectName="TaskParam"
 					   selectByExampleQueryId="false"
 					   enableUpdateByExample="false"
 					   enableDeleteByExample="false">
-						<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />
-						<columnOverride column="is_fixed_delivery" javaType="Boolean"/>
-						<columnOverride column="is_delete" javaType="Boolean"/>
-		                <columnOverride column="is_split" javaType="Boolean"/>
+					<generatedKey column="param_id" sqlStatement="JDBC" identity="true" />
 				</table>
 
 
 
 
-<!--		<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"-->
+
+        <!--		<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"-->
 <!--			   selectByExampleQueryId="false"-->
 <!--			   enableUpdateByExample="false"-->
 <!--			   enableDeleteByExample="false">-->

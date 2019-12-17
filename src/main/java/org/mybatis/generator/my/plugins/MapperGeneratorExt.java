@@ -59,18 +59,18 @@ public class MapperGeneratorExt extends AbstractJavaGenerator {
             
             FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(mapper.getShortName());
 
-//            FullyQualifiedJavaType example = new FullyQualifiedJavaType(introspectedTable.getExampleType());
+            FullyQualifiedJavaType example = new FullyQualifiedJavaType(introspectedTable.getExampleType());
 
             FullyQualifiedJavaType entity = new FullyQualifiedJavaType(
                     context.getJavaModelGeneratorConfiguration().getTargetPackage() + "." + introspectedTable.getFullyQualifiedTable().getDomainObjectName());
             
             fqjt.addTypeArgument(entity);
-//            fqjt.addTypeArgument(example);
+            fqjt.addTypeArgument(example);
             
             interfaze.addSuperInterface(fqjt);
 
             interfaze.addImportedType(mapper);
-//            interfaze.addImportedType(example);
+            interfaze.addImportedType(example);
             interfaze.addImportedType(entity);
         }
 
