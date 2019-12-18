@@ -11,15 +11,17 @@ public class XmlFileOverwritePlugin extends PluginAdapter {
 
     @Override
     public boolean sqlMapGenerated(GeneratedXmlFile sqlMap, IntrospectedTable introspectedTable) {
-//        sqlMap.setMergeable(true);
-        try {
-            Field field = sqlMap.getClass().getDeclaredField("isMergeable");
-            field.setAccessible(true);
-            field.setBoolean(sqlMap, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
+        sqlMap.setMergeable(false);
+        return super.sqlMapGenerated(sqlMap,introspectedTable);
+//
+//        try {
+//            Field field = sqlMap.getClass().getDeclaredField("isMergeable");
+//            field.setAccessible(true);
+//            field.setBoolean(sqlMap, false);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return true;
     }
     
     @Override

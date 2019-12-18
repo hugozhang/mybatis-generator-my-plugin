@@ -21,6 +21,7 @@ public class MapperPlugin extends PluginAdapter {
         return false;
     }*/
 
+    @Override
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
         MapperGeneratorExt mapperGeneratorExt = new MapperGeneratorExt();
         mapperGeneratorExt.setContext(context);
