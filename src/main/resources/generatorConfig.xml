@@ -84,11 +84,11 @@
 <!--			<columnOverride column="is_enable" javaType="Boolean" />-->
 <!--		</table>-->
 
-				<table schema="tgm" tableName="task_param" delimitIdentifiers="true" domainObjectName="TaskParam"
+				<table schema="tgm" tableName="adjust_for_item" delimitIdentifiers="true" domainObjectName="AdjustForItem"
 					   selectByExampleQueryId="false"
 					   enableUpdateByExample="false"
 					   enableDeleteByExample="false">
-					<generatedKey column="param_id" sqlStatement="JDBC" identity="true" />
+					<generatedKey column="adjust_item_id" sqlStatement="JDBC" identity="true" />
 				</table>
 
 
