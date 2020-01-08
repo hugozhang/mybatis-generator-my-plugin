@@ -15,17 +15,18 @@
 		<property name="endingDelimiter" value="`" />
 
 		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePlugin"></plugin>
-		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>
-		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
-		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+<!--		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>-->
+<!--		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>-->
 		<plugin type="org.mybatis.generator.my.plugins.PaginationPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ExampleEnhancedPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.ModelEnhancedPlugin"></plugin>
-		<plugin type="org.mybatis.generator.my.plugins.XmlFileOverwritePlugin"></plugin>
+		<plugin type="org.mybatis.generator.my.plugins.SQLMapEnhancePlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.InsertBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.UpdateBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.MapperPlugin"></plugin>
-<!--		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePluginV2"></plugin>-->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+
+		<!--		<plugin type="org.mybatis.generator.my.plugins.v2.DynamicQueryExamplePluginV2"></plugin>-->
 
 		<commentGenerator type="org.mybatis.generator.my.comment.MySQLCommentGenerator"/>
 		<jdbcConnection driverClass="${jdbc.driver}"
@@ -53,15 +54,7 @@
 		</javaClientGenerator>
 
 
-<!--				<table schema="tgm" tableName="task_scheduled" delimitIdentifiers="true" domainObjectName="TaskScheduled"-->
-<!--					   selectByExampleQueryId="false"-->
-<!--					   enableUpdateByExample="false"-->
-<!--					   enableDeleteByExample="false">-->
-<!--						<generatedKey column="task_id" sqlStatement="JDBC" identity="true" />-->
-<!--						<columnOverride column="is_fixed_delivery" javaType="Boolean"/>-->
-<!--						<columnOverride column="is_delete" javaType="Boolean"/>-->
-<!--		                <columnOverride column="is_split" javaType="Boolean"/>-->
-<!--				</table>-->
+				<table schema="tgm" tableName="task_scheduled"/>
 
 <!--				<table schema="tgm" tableName="project" delimitIdentifiers="true" domainObjectName="Project"-->
 <!--					   selectByExampleQueryId="false"-->
@@ -84,12 +77,8 @@
 <!--			<columnOverride column="is_enable" javaType="Boolean" />-->
 <!--		</table>-->
 
-				<table schema="tgm" tableName="adjust_for_item" delimitIdentifiers="true" domainObjectName="AdjustForItem"
-					   selectByExampleQueryId="false"
-					   enableUpdateByExample="false"
-					   enableDeleteByExample="false">
-					<generatedKey column="adjust_item_id" sqlStatement="JDBC" identity="true" />
-				</table>
+
+
 
 
 

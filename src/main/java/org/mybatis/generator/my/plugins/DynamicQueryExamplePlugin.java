@@ -590,8 +590,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
             method.addParameter(new Parameter(listOfDates, "values")); 
             method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "property")); 
             method.addBodyLine("if (values == null || values.size() == 0) {"); 
-            method.addBodyLine(
-                    "throw new RuntimeException(\"Value list for \" + property + \" cannot be null or empty\");"); 
+            method.addBodyLine("throw new RuntimeException(\"Value list for \" + property + \" cannot be null or empty\");");
             method.addBodyLine("}"); 
             method.addBodyLine("List<java.sql.Time> timeList = new ArrayList<java.sql.Time>();"); 
             method.addBodyLine("Iterator<Date> iter = values.iterator();"); 

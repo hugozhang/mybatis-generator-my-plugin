@@ -5,9 +5,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.mybatis.generator.api.GeneratedJavaFile;
+import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
+import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 public class MapperPlugin extends PluginAdapter {
 
@@ -15,11 +18,6 @@ public class MapperPlugin extends PluginAdapter {
     public boolean validate(List<String> warnings) {
         return true;
     }
-
-    /*public boolean sqlMapDeleteByExampleElementGenerated(XmlElement element,
-            IntrospectedTable introspectedTable) {
-        return false;
-    }*/
 
     @Override
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {

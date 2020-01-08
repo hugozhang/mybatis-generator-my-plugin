@@ -76,7 +76,7 @@ public class MapperGeneratorExt extends AbstractJavaGenerator {
             interfaze.addImportedType(entity);
         }
 
-        List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
+        List<CompilationUnit> answer = new ArrayList();
         if (context.getPlugins().clientGenerated(interfaze, null, introspectedTable)) {
             answer.add(interfaze);
         }
