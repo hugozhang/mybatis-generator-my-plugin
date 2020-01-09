@@ -12,6 +12,7 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
 public class UpdateBatchPlugin extends PluginAdapter{
@@ -22,33 +23,7 @@ public class UpdateBatchPlugin extends PluginAdapter{
         updateBatchSelective(document,introspectedTable);
         return true;
     }
-    
-    @Override
-    public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-        /*CommentGenerator commentGenerator = context.getCommentGenerator();
-        FullyQualifiedJavaType listType = FullyQualifiedJavaType.getNewListInstance();
-        listType.addTypeArgument(introspectedTable.getRules().calculateAllFieldsClass());
-        
-        Method method = new Method();
-        method.setVisibility(JavaVisibility.DEFAULT);
-        method.setName("updateBatchByPrimaryKeySelective");
-        method.addParameter(new Parameter(listType, "list"));
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        commentGenerator.addGeneralMethodComment(method, introspectedTable);
-        interfaze.addMethod(method);
-        
-        method = new Method();
-        method.setVisibility(JavaVisibility.DEFAULT);
-        method.setName("updateBatchByPrimaryKey");
-        method.addParameter(new Parameter(listType, "list"));
-        method.setReturnType(FullyQualifiedJavaType.getIntInstance());
-        commentGenerator.addGeneralMethodComment(method, introspectedTable);
-        interfaze.addMethod(method);*/
-        
-        return true;
-    }
-    
-    
+
     private void updateBatch(Document document,IntrospectedTable introspectedTable) {
         CommentGenerator commentGenerator = context.getCommentGenerator();
         XmlElement batchUpdateEl = new XmlElement("update");
@@ -64,25 +39,25 @@ public class UpdateBatchPlugin extends PluginAdapter{
         foreachEl.addAttribute(new Attribute("close", ""));
         
         foreachEl.addElement(new TextElement("update " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
+
         XmlElement setEl = new XmlElement("set");
-        for(IntrospectedColumn column : introspectedTable.getAllColumns()) {
+        foreachEl.addElement(setEl);
+        for(IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
+                .getAllColumns())) {
             StringBuilder sb = new StringBuilder();
-            sb.append(column.getActualColumnName());
-            sb.append(" = #{");
-            sb.append("item."+column.getJavaProperty());
-            sb.append("},");
+            sb.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(column));
+            sb.append(" = ");
+            sb.append(MyBatis3FormattingUtilities.getParameterClause(column,"item."));
+            sb.append(",");
             setEl.addElement(new TextElement(sb.toString()));
         }
         IntrospectedColumn primaryKeyColumn = introspectedTable.getPrimaryKeyColumns().get(0);
         StringBuilder sb = new StringBuilder();
-        sb.append("where " + MyBatis3FormattingUtilities
-                .getAliasedEscapedColumnName(primaryKeyColumn));
+        sb.append("where " + MyBatis3FormattingUtilities.getAliasedEscapedColumnName(primaryKeyColumn));
         sb.append(" = ");
-        sb.append(MyBatis3FormattingUtilities.getParameterClause(
-                primaryKeyColumn, "item."));
-        
-        foreachEl.addElement(setEl);
+        sb.append(MyBatis3FormattingUtilities.getParameterClause(primaryKeyColumn, "item."));
         foreachEl.addElement(new TextElement(sb.toString()));
+
         batchUpdateEl.addElement(foreachEl);
         commentGenerator.addComment(foreachEl);
         commentGenerator.addComment(batchUpdateEl);
@@ -106,18 +81,17 @@ public class UpdateBatchPlugin extends PluginAdapter{
         
         foreachEl.addElement(new TextElement("update " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
         XmlElement setEl = new XmlElement("set");
-        for(IntrospectedColumn column : introspectedTable.getAllColumns()) {
+        for(IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
+                .getAllColumns())) {
             
             if(column.isAutoIncrement()) continue;
             XmlElement ifEl = new XmlElement("if");
             ifEl.addAttribute(new Attribute("test", column.getJavaProperty("item.") + " != null"));
             
             StringBuilder sb = new StringBuilder();
-            sb.append(MyBatis3FormattingUtilities
-                    .getAliasedEscapedColumnName(column));
+            sb.append(MyBatis3FormattingUtilities.getAliasedEscapedColumnName(column));
             sb.append(" = ");
-            sb.append(MyBatis3FormattingUtilities.getParameterClause(
-                    column, "item."));
+            sb.append(MyBatis3FormattingUtilities.getParameterClause(column, "item."));
             sb.append(',');
             ifEl.addElement(new TextElement(sb.toString()));
             setEl.addElement(ifEl);
@@ -134,11 +108,9 @@ public class UpdateBatchPlugin extends PluginAdapter{
         }
         IntrospectedColumn primaryKeyColumn = introspectedTable.getPrimaryKeyColumns().get(0);
         StringBuilder sb = new StringBuilder();
-        sb.append("where " + MyBatis3FormattingUtilities
-                .getAliasedEscapedColumnName(primaryKeyColumn));
+        sb.append("where " + MyBatis3FormattingUtilities.getAliasedEscapedColumnName(primaryKeyColumn));
         sb.append(" = ");
-        sb.append(MyBatis3FormattingUtilities.getParameterClause(
-                primaryKeyColumn, "item."));
+        sb.append(MyBatis3FormattingUtilities.getParameterClause(primaryKeyColumn, "item."));
         foreachEl.addElement(new TextElement(sb.toString()));
         batchUpdateEl.addElement(foreachEl);
         

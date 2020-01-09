@@ -9,6 +9,7 @@ import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.config.GeneratedKey;
 import org.mybatis.generator.config.TableConfiguration;
 
 public class SQLMapEnhancePlugin extends PluginAdapter {
@@ -19,6 +20,7 @@ public class SQLMapEnhancePlugin extends PluginAdapter {
 
     @Override
     public void initialized(IntrospectedTable introspectedTable) {
+        //以下是为了简化generateConfig.xml
         super.initialized(introspectedTable);
         TableConfiguration tableConfiguration = introspectedTable.getTableConfiguration();
         tableConfiguration.setAllColumnDelimitingEnabled(true);
@@ -26,7 +28,16 @@ public class SQLMapEnhancePlugin extends PluginAdapter {
         tableConfiguration.setUpdateByExampleStatementEnabled(false);
         tableConfiguration.setDeleteByExampleStatementEnabled(false);
         tableConfiguration.setDomainObjectName(domainObjectName(tableConfiguration.getTableName()));
-        //主键
+
+        //generateKey 会影响主键id的返回
+        List<IntrospectedColumn> primaryKeyColumns = introspectedTable.getPrimaryKeyColumns();
+        if (primaryKeyColumns.size() != 1) {
+            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + ",table name is " + tableConfiguration.getTableName());
+        }
+        IntrospectedColumn primaryKeyColumn = primaryKeyColumns.get(0);
+        GeneratedKey generatedKey = new GeneratedKey(primaryKeyColumn.getActualColumnName(),"JDBC",true,null);
+        tableConfiguration.setGeneratedKey(generatedKey);
+
         //tinyint(1) 默认会转成byte
         List<IntrospectedColumn> baseColumns = introspectedTable.getBaseColumns();
         for ( IntrospectedColumn column : baseColumns ) {

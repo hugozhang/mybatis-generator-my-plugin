@@ -48,8 +48,7 @@ public class MapperGeneratorExt extends AbstractJavaGenerator {
 
         String rootInterface = introspectedTable.getTableConfigurationProperty(PropertyRegistry.ANY_ROOT_INTERFACE);
         if (!stringHasValue(rootInterface)) {
-            rootInterface = context.getJavaClientGeneratorConfiguration()
-                    .getProperty(PropertyRegistry.ANY_ROOT_INTERFACE);
+            rootInterface = context.getJavaClientGeneratorConfiguration().getProperty(PropertyRegistry.ANY_ROOT_INTERFACE);
         }
 
         if (stringHasValue(rootInterface)) {
@@ -61,8 +60,7 @@ public class MapperGeneratorExt extends AbstractJavaGenerator {
 
             FullyQualifiedJavaType example = new FullyQualifiedJavaType(introspectedTable.getExampleType());
 
-            FullyQualifiedJavaType entity = new FullyQualifiedJavaType(
-                    context.getJavaModelGeneratorConfiguration().getTargetPackage() + "." + introspectedTable.getFullyQualifiedTable().getDomainObjectName());
+            FullyQualifiedJavaType entity = new FullyQualifiedJavaType(context.getJavaModelGeneratorConfiguration().getTargetPackage() + "." + introspectedTable.getFullyQualifiedTable().getDomainObjectName());
 
             //泛型参数
             fqjt.addTypeArgument(entity);

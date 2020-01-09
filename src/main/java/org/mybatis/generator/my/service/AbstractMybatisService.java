@@ -1,10 +1,10 @@
 package org.mybatis.generator.my.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.generator.my.mapper.Mapper;
 import org.mybatis.generator.my.page.Page;
-import org.mybatis.generator.my.page.PageFunction;
 
 /**
  *
@@ -23,7 +23,7 @@ public abstract class AbstractMybatisService<En, Ex> implements MybatisService<E
 
     /**
      *
-     * @Title: pageOf
+     * @Title: ofPage
      * @Description: 分页
      * @param: @param query    In:传过来的参数
      * @param: @param func      Out:返回的对象
@@ -31,17 +31,13 @@ public abstract class AbstractMybatisService<En, Ex> implements MybatisService<E
      * @return: Page<E>
      * @throws
      */
-    public <Out> Page<Out> pageOf(int pageSize,int pageNo,PageFunction<Out> func) {
-        Page<Out> p = new Page<Out>();
-        if(func == null) return p;
-        p.setPageNo(pageNo);
-        p.setPageSize(pageSize);
-        int total = func.ofTotal();
-        p.setTotal(total);
-        if (total != 0) {
-            p.setResults(func.ofResults());
+    public Page<En> ofPage(int pageNo,int pageSize,Ex example) {
+        int total = (int)getMapper().countByExample(example);
+        List<En> results = new ArrayList<>();
+        if (total != 0 ) {
+            results = getMapper().selectByExample(example);
         }
-        return p;
+        return new Page(pageNo,pageSize,total,results);
     }
 
     public int deleteByPrimaryKey(Integer primaryKey) {
@@ -63,6 +59,8 @@ public abstract class AbstractMybatisService<En, Ex> implements MybatisService<E
     public int insertBatch(List<En> list) {
         return getMapper().insertBatch(list);
     }
+
+    public int insertBatchSelective(List<En> list) { return getMapper().insertBatchSelective(list); }
 
     public List<En> selectByExample(Ex example) {
         return getMapper().selectByExample(example);

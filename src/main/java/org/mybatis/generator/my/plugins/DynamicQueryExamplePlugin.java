@@ -976,8 +976,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
         method.addBodyLine("throw new RuntimeException(\"Value for \" + property + \" cannot be null\");"); 
         method.addBodyLine("}"); 
 
-        method.addBodyLine(String.format("%s.add(new Criterion(condition, value, \"%s\"));", 
-                field.getName(), introspectedColumn.getTypeHandler()));
+        method.addBodyLine(String.format("%s.add(new Criterion(condition, value, \"%s\"));", field.getName(), introspectedColumn.getTypeHandler()));
         method.addBodyLine("allCriteria = null;"); 
         innerClass.addMethod(method);
 

@@ -15,7 +15,7 @@ public class Page<T> implements Serializable {
 
     private int totalPage = 0;
 
-    private Collection<T> results = new ArrayList<T>();
+    private Collection<T> results = new ArrayList();
 
     public Page() {
 

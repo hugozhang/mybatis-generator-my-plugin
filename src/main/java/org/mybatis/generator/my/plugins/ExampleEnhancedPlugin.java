@@ -17,6 +17,11 @@ public class ExampleEnhancedPlugin extends PluginAdapter {
 
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+
+//        String supperClass = Example.class.getName();
+//        topLevelClass.setSuperClass(supperClass);
+//        topLevelClass.addImportedType(supperClass);
+
         CommentGenerator commentGenerator = context.getCommentGenerator();
         List<InnerClass> innerClasses = topLevelClass.getInnerClasses();
         for (InnerClass innerClass : innerClasses) {
