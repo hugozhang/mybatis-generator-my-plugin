@@ -32,12 +32,7 @@ public class InsertBatchPlugin extends PluginAdapter {
         batchInsertEl.addAttribute(new Attribute("useGeneratedKeys", "true"));
 
         if (introspectedTable.getPrimaryKeyColumns().size() != 1) {
-            StringBuilder sb = new StringBuilder();
-            for (IntrospectedColumn column : introspectedTable.getPrimaryKeyColumns()) {
-                sb.append(column.getActualColumnName());
-                sb.append(",");
-            }
-            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + " : " + sb.toString());
+            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + ",table is " + introspectedTable.getFullyQualifiedTableNameAtRuntime());
         }
 
         batchInsertEl.addAttribute(new Attribute("keyProperty", introspectedTable.getPrimaryKeyColumns().get(0).getJavaProperty()));
@@ -50,17 +45,16 @@ public class InsertBatchPlugin extends PluginAdapter {
 
         foreachEl.addElement(new TextElement("insert into " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
 
-
-        XmlElement insertTrimElement = new XmlElement("trim"); //$NON-NLS-1$
-        insertTrimElement.addAttribute(new Attribute("prefix", "(")); //$NON-NLS-1$ //$NON-NLS-2$
-        insertTrimElement.addAttribute(new Attribute("suffix", ")")); //$NON-NLS-1$ //$NON-NLS-2$
-        insertTrimElement.addAttribute(new Attribute("suffixOverrides", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement insertTrimElement = new XmlElement("trim");
+        insertTrimElement.addAttribute(new Attribute("prefix", "("));
+        insertTrimElement.addAttribute(new Attribute("suffix", ")"));
+        insertTrimElement.addAttribute(new Attribute("suffixOverrides", ","));
         foreachEl.addElement(insertTrimElement);
 
-        XmlElement valuesTrimElement = new XmlElement("trim"); //$NON-NLS-1$
-        valuesTrimElement.addAttribute(new Attribute("prefix", "values (")); //$NON-NLS-1$ //$NON-NLS-2$
-        valuesTrimElement.addAttribute(new Attribute("suffix", ")")); //$NON-NLS-1$ //$NON-NLS-2$
-        valuesTrimElement.addAttribute(new Attribute("suffixOverrides", ",")); //$NON-NLS-1$ //$NON-NLS-2$
+        XmlElement valuesTrimElement = new XmlElement("trim");
+        valuesTrimElement.addAttribute(new Attribute("prefix", "values ("));
+        valuesTrimElement.addAttribute(new Attribute("suffix", ")"));
+        valuesTrimElement.addAttribute(new Attribute("suffixOverrides", ","));
         foreachEl.addElement(valuesTrimElement);
 
         StringBuilder sb = new StringBuilder();
@@ -126,22 +120,16 @@ public class InsertBatchPlugin extends PluginAdapter {
         batchInsertEl.addAttribute(new Attribute("useGeneratedKeys", "true"));
 
         if (introspectedTable.getPrimaryKeyColumns().size() != 1) {
-            StringBuilder sb = new StringBuilder();
-            for (IntrospectedColumn column : introspectedTable.getPrimaryKeyColumns()) {
-                sb.append(column.getActualColumnName());
-                sb.append(",");
-            }
-            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + " : " + sb.toString());
+            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + ",table is " + introspectedTable.getFullyQualifiedTableNameAtRuntime() );
         }
 
         batchInsertEl.addAttribute(new Attribute("keyProperty", introspectedTable.getPrimaryKeyColumns().get(0).getJavaProperty()));
-
         batchInsertEl.addElement(new TextElement("insert into " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
 
         StringBuilder buffer = new StringBuilder("(");
-        for (IntrospectedColumn column : introspectedTable.getAllColumns()) {
-            if (column.isAutoIncrement()) continue;
-            buffer.append(column.getActualColumnName());
+        for (IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
+                .getAllColumns())) {
+            buffer.append(MyBatis3FormattingUtilities.getEscapedColumnName(column));
             buffer.append(",");
         }
         buffer.deleteCharAt(buffer.length() - 1);
@@ -155,9 +143,9 @@ public class InsertBatchPlugin extends PluginAdapter {
         foreachEl.addAttribute(new Attribute("separator", ","));
 
         buffer = new StringBuilder("(");
-        for (IntrospectedColumn column : introspectedTable.getAllColumns()) {
-            if (column.isAutoIncrement()) continue;
-            buffer.append("#{item." + column.getJavaProperty() + "}");
+        for (IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
+                .getAllColumns())) {
+            buffer.append(MyBatis3FormattingUtilities.getParameterClause(column,"item."));
             buffer.append(",");
         }
         buffer.deleteCharAt(buffer.length() - 1);

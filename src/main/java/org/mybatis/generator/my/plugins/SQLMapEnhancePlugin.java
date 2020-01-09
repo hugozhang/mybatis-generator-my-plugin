@@ -14,9 +14,9 @@ import org.mybatis.generator.config.TableConfiguration;
 
 public class SQLMapEnhancePlugin extends PluginAdapter {
 
-    private String domainObjectName(String tableName) {
-        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL,tableName);
-    }
+//    private String domainObjectName(String tableName) {
+//        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL,tableName);
+//    }
 
     @Override
     public void initialized(IntrospectedTable introspectedTable) {
@@ -27,16 +27,6 @@ public class SQLMapEnhancePlugin extends PluginAdapter {
         tableConfiguration.setSelectByExampleStatementEnabled(false);
         tableConfiguration.setUpdateByExampleStatementEnabled(false);
         tableConfiguration.setDeleteByExampleStatementEnabled(false);
-        tableConfiguration.setDomainObjectName(domainObjectName(tableConfiguration.getTableName()));
-
-        //generateKey 会影响主键id的返回
-        List<IntrospectedColumn> primaryKeyColumns = introspectedTable.getPrimaryKeyColumns();
-        if (primaryKeyColumns.size() != 1) {
-            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + ",table name is " + tableConfiguration.getTableName());
-        }
-        IntrospectedColumn primaryKeyColumn = primaryKeyColumns.get(0);
-        GeneratedKey generatedKey = new GeneratedKey(primaryKeyColumn.getActualColumnName(),"JDBC",true,null);
-        tableConfiguration.setGeneratedKey(generatedKey);
 
         //tinyint(1) 默认会转成byte
         List<IntrospectedColumn> baseColumns = introspectedTable.getBaseColumns();
@@ -50,6 +40,16 @@ public class SQLMapEnhancePlugin extends PluginAdapter {
             if (column.getJdbcType() != Types.LONGVARCHAR) continue;
             baseColumns.add(column);
         }
+
+        //generateKey 会影响主键id的返回
+        List<IntrospectedColumn> primaryKeyColumns = introspectedTable.getPrimaryKeyColumns();
+        if (primaryKeyColumns.size() != 1) {
+            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + ",table name is " + introspectedTable.getFullyQualifiedTableNameAtRuntime());
+        }
+        IntrospectedColumn primaryKeyColumn = primaryKeyColumns.get(0);
+        GeneratedKey generatedKey = new GeneratedKey(primaryKeyColumn.getActualColumnName(),"JDBC",true,null);
+        tableConfiguration.setGeneratedKey(generatedKey);
+
         introspectedTable.getBLOBColumns().clear();
     }
 

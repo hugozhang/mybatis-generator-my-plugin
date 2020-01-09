@@ -83,8 +83,6 @@ public class UpdateBatchPlugin extends PluginAdapter{
         XmlElement setEl = new XmlElement("set");
         for(IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
                 .getAllColumns())) {
-            
-            if(column.isAutoIncrement()) continue;
             XmlElement ifEl = new XmlElement("if");
             ifEl.addAttribute(new Attribute("test", column.getJavaProperty("item.") + " != null"));
             
@@ -99,12 +97,7 @@ public class UpdateBatchPlugin extends PluginAdapter{
         }
         foreachEl.addElement(setEl);
         if(introspectedTable.getPrimaryKeyColumns().size() != 1) {
-            StringBuilder sb = new StringBuilder();
-            for(IntrospectedColumn column : introspectedTable.getPrimaryKeyColumns()) {
-                sb.append(column.getActualColumnName());
-                sb.append(",");
-            }
-            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + " : " + sb.toString());
+            throw new RuntimeException("Primary key must only one,but found " + introspectedTable.getPrimaryKeyColumns().size() + ",table is " + introspectedTable.getFullyQualifiedTableNameAtRuntime());
         }
         IntrospectedColumn primaryKeyColumn = introspectedTable.getPrimaryKeyColumns().get(0);
         StringBuilder sb = new StringBuilder();

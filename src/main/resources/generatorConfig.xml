@@ -54,7 +54,7 @@
 		</javaClientGenerator>
 
 
-		<table schema="tgm" tableName="task_scheduled"/>
+		<table schema="tgm" tableName="%"/>
 
 <!--				<table schema="tgm" tableName="project" delimitIdentifiers="true" domainObjectName="Project"-->
 <!--					   selectByExampleQueryId="false"-->
