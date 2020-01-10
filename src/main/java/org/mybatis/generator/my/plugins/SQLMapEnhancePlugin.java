@@ -23,13 +23,13 @@ public class SQLMapEnhancePlugin extends PluginAdapter {
         tableConfiguration.setUpdateByExampleStatementEnabled(false);
         tableConfiguration.setDeleteByExampleStatementEnabled(false);
 
-        //tinyint(1) 默认会转成byte
+        //tinyint(1) 默认会转成byte 这里指定成Boolean
         List<IntrospectedColumn> baseColumns = introspectedTable.getBaseColumns();
         for ( IntrospectedColumn column : baseColumns ) {
-            if (column.getJdbcType() != Types.TINYINT) continue;
+            if (column.getJdbcType() != Types.TINYINT && !column.getFullyQualifiedJavaType().getShortName().equals("Byte")) continue;
             column.setFullyQualifiedJavaType(new FullyQualifiedJavaType("java.lang.Boolean"));
         }
-        //text 默认会转会Bob
+        //text 默认会转会Bob 这里指定成LongVarchar
         List<IntrospectedColumn> blobColumns = introspectedTable.getBLOBColumns();
         for ( IntrospectedColumn column : blobColumns ) {
             if (column.getJdbcType() != Types.LONGVARCHAR) continue;
