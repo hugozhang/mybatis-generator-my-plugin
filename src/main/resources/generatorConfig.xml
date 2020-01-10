@@ -14,6 +14,14 @@
 		<!--分割关键字的后符号 -->
 		<property name="endingDelimiter" value="`" />
 
+		<property name="servicePackage" value="${service.package}" />
+
+		<property name="serviceTargetProject" value="${service.target.project}" />
+
+		<property name="serviceImplPackage" value="${service.impl.package}" />
+
+		<property name="serviceImplTargetProject" value="${service.impl.target.project}" />
+
 		<plugin type="org.mybatis.generator.my.plugins.DynamicQueryExamplePlugin"></plugin>
 <!--		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"></plugin>-->
 <!--		<plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>-->
@@ -25,10 +33,10 @@
 		<plugin type="org.mybatis.generator.my.plugins.UpdateBatchPlugin"></plugin>
 		<plugin type="org.mybatis.generator.my.plugins.MapperPlugin"></plugin>
 		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
-
-		<!--		<plugin type="org.mybatis.generator.my.plugins.v2.DynamicQueryExamplePluginV2"></plugin>-->
+		<plugin type="org.mybatis.generator.my.plugins.ServicePlugin"></plugin>
 
 		<commentGenerator type="org.mybatis.generator.my.comment.MySQLCommentGenerator"/>
+
 		<jdbcConnection driverClass="${jdbc.driver}"
 			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
 		</jdbcConnection>
@@ -52,7 +60,6 @@
 			<property name="enableSubPackages" value="true" />
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
-
 
 		<table schema="tgm" tableName="%"/>
 

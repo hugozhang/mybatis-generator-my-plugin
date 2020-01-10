@@ -3,7 +3,6 @@ package org.mybatis.generator.my.plugins;
 import java.sql.Types;
 import java.util.List;
 
-import com.google.common.base.CaseFormat;
 import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
@@ -13,10 +12,6 @@ import org.mybatis.generator.config.GeneratedKey;
 import org.mybatis.generator.config.TableConfiguration;
 
 public class SQLMapEnhancePlugin extends PluginAdapter {
-
-//    private String domainObjectName(String tableName) {
-//        return CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL,tableName);
-//    }
 
     @Override
     public void initialized(IntrospectedTable introspectedTable) {

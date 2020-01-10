@@ -17,6 +17,8 @@ public class MySQLCommentGenerator extends EmptyCommentGenerator  {
         properties = new Properties();
     }
 
+
+
     @Override
     public void addConfigurationProperties(Properties properties) {
         // 获取自定义的 properties

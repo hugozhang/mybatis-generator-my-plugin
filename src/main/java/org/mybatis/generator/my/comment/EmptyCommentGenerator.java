@@ -63,7 +63,6 @@ public class EmptyCommentGenerator implements CommentGenerator {
 
     @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
-
     }
 
     @Override

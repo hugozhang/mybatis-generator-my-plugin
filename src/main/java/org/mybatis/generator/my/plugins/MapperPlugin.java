@@ -26,7 +26,7 @@ public class MapperPlugin extends PluginAdapter {
         mapperGeneratorExt.setIntrospectedTable(introspectedTable);
         List<CompilationUnit> units = mapperGeneratorExt.getCompilationUnits();
         List<GeneratedJavaFile> generatedFile = new ArrayList<GeneratedJavaFile>();
-        GeneratedJavaFile genJavaFile = null;
+        GeneratedJavaFile genJavaFile;
         for (Iterator<CompilationUnit> iterator = units.iterator(); iterator.hasNext(); generatedFile.add(genJavaFile)) {
             CompilationUnit unit =  iterator.next();
             genJavaFile = new GeneratedJavaFile(unit, context.getJavaClientGeneratorConfiguration().getTargetProject(),
