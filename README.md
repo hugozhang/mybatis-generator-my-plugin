@@ -1,9 +1,9 @@
 # mybatis-generator-my-plugin
 
-java中用boolean类型对应mysql用bit  有索引的尽量不要用null
+有索引的尽量不要有null
 
 ## mybatis-generator 插件扩展
-
+-  java中tinyint(1)对应Boolean
 -  动态查询(where条件构建example不用检查有没有值)
 -  Example增强(支持example链式调用)
 -  Model增强（新缯内部类Column，asc(),desc()）
