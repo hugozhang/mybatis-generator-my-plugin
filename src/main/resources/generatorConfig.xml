@@ -61,7 +61,7 @@
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
 
-		<table schema="tgm" tableName="%"/>
+		<table schema="vehicle_manage" tableName="risk_work_order"/>
 
 <!--				<table schema="tgm" tableName="project" delimitIdentifiers="true" domainObjectName="Project"-->
 <!--					   selectByExampleQueryId="false"-->

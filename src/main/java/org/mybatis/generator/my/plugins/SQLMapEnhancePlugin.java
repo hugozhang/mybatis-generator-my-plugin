@@ -19,7 +19,7 @@ public class SQLMapEnhancePlugin extends PluginAdapter {
         super.initialized(introspectedTable);
         TableConfiguration tableConfiguration = introspectedTable.getTableConfiguration();
         tableConfiguration.setAllColumnDelimitingEnabled(true);
-        tableConfiguration.setSelectByExampleStatementEnabled(false);
+        tableConfiguration.setSelectByExampleStatementEnabled(true);
         tableConfiguration.setUpdateByExampleStatementEnabled(false);
         tableConfiguration.setDeleteByExampleStatementEnabled(false);
 
