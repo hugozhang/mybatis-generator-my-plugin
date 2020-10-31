@@ -8,11 +8,10 @@ import java.util.List;
  * 
  * @ClassName:   Mapper   
  * @Description: 通用Mapper接口
- * @author:      Administrator
+ * @author:      Hugozxh
  * @date:        2019年4月28日 下午2:44:55  
  *
  * @param <En> En = entity  实体类
- * @Copyright:   2019 www.jumapeisong.com Inc. All rights reserved.
  */
 public interface Mapper<En> {
 

@@ -37,8 +37,11 @@
 
 		<commentGenerator type="org.mybatis.generator.my.comment.MySQLCommentGenerator"/>
 
-		<jdbcConnection driverClass="${jdbc.driver}"
-			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+		<jdbcConnection
+				driverClass="${jdbc.driver}"
+			    connectionURL="${jdbc.url}"
+				userId="${jdbc.username}"
+				password="${jdbc.password}">
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
@@ -61,7 +64,7 @@
 			<property name="rootInterface" value="org.mybatis.generator.my.mapper.Mapper" />
 		</javaClientGenerator>
 
-		<table schema="vehicle_manage" tableName="risk_work_order"/>
+		<table tableName="adj_hos_pro_med_treat"/>
 
 <!--				<table schema="tgm" tableName="project" delimitIdentifiers="true" domainObjectName="Project"-->
 <!--					   selectByExampleQueryId="false"-->

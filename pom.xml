@@ -98,7 +98,7 @@
 					</dependencies>
 					<configuration>
 						<!--配置文件的路径 -->
-						<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+						<configurationFile>${basedir}/src/main/resources/mybatis-generator.xml</configurationFile>
 						<overwrite>true</overwrite>
 					</configuration>
 				</plugin>
