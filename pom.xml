@@ -19,6 +19,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.16</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-core</artifactId>
 			<version>5.1.7.RELEASE</version>
@@ -45,6 +51,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -84,6 +91,11 @@
 							<version>5.1.21</version>
 						</dependency>
 						<dependency>
+							<groupId>org.postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+							<version>42.2.16</version>
+						</dependency>
+						<dependency>
 							<groupId>com.google.guava</groupId>
 							<artifactId>guava</artifactId>
 							<version>20.0</version>
@@ -106,14 +118,4 @@
 		</pluginManagement>
 	</build>
 
-	<distributionManagement>
-		<repository>
-			<id>releases</id>
-			<url>http://10.101.0.101:8080/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots</id>
-			<url>http://10.101.0.101:8080/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 </project>

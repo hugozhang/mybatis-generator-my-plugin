@@ -6,8 +6,6 @@ import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
-import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
 import org.mybatis.generator.api.dom.xml.TextElement;
@@ -15,6 +13,10 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
+
+/**
+ * 定义一个id序列，作为主键，不支持复合主键
+ */
 public class InsertBatchPlugin extends PluginAdapter {
 
     @Override
@@ -59,8 +61,7 @@ public class InsertBatchPlugin extends PluginAdapter {
 
         StringBuilder sb = new StringBuilder();
         String prefix = "item.";
-        for (IntrospectedColumn introspectedColumn : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
-                .getAllColumns())) {
+        for (IntrospectedColumn introspectedColumn : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns())) {
 
             if (introspectedColumn.isSequenceColumn()
                     || introspectedColumn.getFullyQualifiedJavaType().isPrimitive()) {
@@ -127,8 +128,7 @@ public class InsertBatchPlugin extends PluginAdapter {
         batchInsertEl.addElement(new TextElement("insert into " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
 
         StringBuilder buffer = new StringBuilder("(");
-        for (IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
-                .getAllColumns())) {
+        for (IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns())) {
             buffer.append(MyBatis3FormattingUtilities.getEscapedColumnName(column));
             buffer.append(",");
         }
@@ -143,8 +143,7 @@ public class InsertBatchPlugin extends PluginAdapter {
         foreachEl.addAttribute(new Attribute("separator", ","));
 
         buffer = new StringBuilder("(");
-        for (IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
-                .getAllColumns())) {
+        for (IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns())) {
             buffer.append(MyBatis3FormattingUtilities.getParameterClause(column,"item."));
             buffer.append(",");
         }

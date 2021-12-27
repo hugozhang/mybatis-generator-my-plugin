@@ -541,8 +541,7 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
             method.addParameter(new Parameter(listOfDates, "values")); 
             method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "property")); 
             method.addBodyLine("if (values == null || values.size() == 0) {"); 
-            method.addBodyLine(
-                    "throw new RuntimeException(\"Value list for \" + property + \" cannot be null or empty\");"); 
+            method.addBodyLine("throw new RuntimeException(\"Value list for \" + property + \" cannot be null or empty\");");
             method.addBodyLine("}"); 
             method.addBodyLine("List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();"); 
             method.addBodyLine("Iterator<Date> iter = values.iterator();"); 
@@ -556,8 +555,8 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
             method.setVisibility(JavaVisibility.PROTECTED);
             method.setName("addCriterionForJDBCDate"); 
             method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "condition")); 
-            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "value1")); 
-            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "value2")); 
+            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "data1"));
+            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "data2"));
             method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "property")); 
             method.addBodyLine("if (value1 == null || value2 == null) {"); 
             method.addBodyLine("throw new RuntimeException(\"Between values for \" + property + \" cannot be null\");"); 
@@ -604,8 +603,8 @@ public class DynamicQueryExamplePlugin extends PluginAdapter {
             method.setVisibility(JavaVisibility.PROTECTED);
             method.setName("addCriterionForJDBCTime"); 
             method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "condition")); 
-            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "value1")); 
-            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "value2")); 
+            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "datetime1"));
+            method.addParameter(new Parameter(FullyQualifiedJavaType.getDateInstance(), "datetime1"));
             method.addParameter(new Parameter(FullyQualifiedJavaType.getStringInstance(), "property")); 
             method.addBodyLine("if (value1 == null || value2 == null) {"); 
             method.addBodyLine("throw new RuntimeException(\"Between values for \" + property + \" cannot be null\");"); 

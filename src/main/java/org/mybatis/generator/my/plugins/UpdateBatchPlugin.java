@@ -15,6 +15,10 @@ import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.mybatis3.ListUtilities;
 import org.mybatis.generator.codegen.mybatis3.MyBatis3FormattingUtilities;
 
+
+/**
+ * 定义一个id序列，作为主键，不支持复合主键
+ */
 public class UpdateBatchPlugin extends PluginAdapter{
 
     @Override
@@ -81,8 +85,7 @@ public class UpdateBatchPlugin extends PluginAdapter{
         
         foreachEl.addElement(new TextElement("update " + introspectedTable.getFullyQualifiedTableNameAtRuntime()));
         XmlElement setEl = new XmlElement("set");
-        for(IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable
-                .getAllColumns())) {
+        for(IntrospectedColumn column : ListUtilities.removeIdentityAndGeneratedAlwaysColumns(introspectedTable.getAllColumns())) {
             XmlElement ifEl = new XmlElement("if");
             ifEl.addAttribute(new Attribute("test", column.getJavaProperty("item.") + " != null"));
             

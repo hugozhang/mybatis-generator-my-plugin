@@ -15,9 +15,6 @@ import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 
-/**
- * Created by sliang on 2016/8/19 0019.
- */
 public class PaginationPlugin extends PluginAdapter {
     @Override
     public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
